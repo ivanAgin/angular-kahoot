@@ -1,9 +1,0 @@
-language: node_js
-node_js:
-  - "7"
-script:
- - echo "Deploy!!"
-install:
-  - npm install -g firebase-tools
-after_success:
-  - firebase deploy --project kahoot-angular --token 03wDWKI4OoM27CgYIARAAGAMSNwF-L9Ir4bGeGkhO51dstGRTCGpZqRL9rjhZvAmWavWCLVfw-pJQFumuMMVZaH3W2TE4bVWU5t4
