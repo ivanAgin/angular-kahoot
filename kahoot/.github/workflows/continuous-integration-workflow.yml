@@ -1,0 +1,18 @@
+nombre: name
+# Este flujo de trabajo se desencadena en los envíos al repositorio.
+on: [push,pull_request]
+
+jobs:
+  build:
+    # El nombre del archivo es Greeting
+    name: Deploy
+    # Este archivo se ejecuta en Linux
+    runs-on: ubuntu-latest
+    steps:
+      # Este paso usa hello-world-javascript-action de GitHub: https://github.com/actions/hello-world-javascript-action
+      - name: Deploy Kahoot Angular
+        uses: Koubura/angular-kahoot/tree/master/kahoot
+        id: hello
+      # Este paso imprime un resultado (tiempo) desde la acción del paso anterior.
+      - name: Echo the greeting's time
+        run: echo 'The time was ${{ steps.hello.outputs.time }}.'
