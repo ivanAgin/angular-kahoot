@@ -182,3 +182,10 @@ input {
 #start-users-list li.back-yellow {
     background: #D89E00;
 }
+
+.cross {
+    position: relative;
+    top: 2px;
+    margin-left: 6px;
+    margin-right: -12px;
+}
