@@ -55,6 +55,8 @@ input {
 }
 
 .rombo {
+    width: 60px;
+    height: 60px;
     border-color:rgba(15, 104, 215, 0.4);
     top: 50%;
     left: 80%;
@@ -187,6 +189,12 @@ input {
     background: #D89E00;
 }
 
+.cross {
+    position: relative;
+    top: 2px;
+    margin-left: 6px;
+    margin-right: -12px;
+}
 #start-join {
     margin-bottom: 20px;
 }
