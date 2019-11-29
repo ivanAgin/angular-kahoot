@@ -1,2 +1,139 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box;
+}
 
+body {
+    margin: 0;
+}
+
+input {
+    display: block;
+    width: 295px;
+    border: 1px solid black;
+    margin: 10px auto;
+    font-size: 22px;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: 400;
+}
+
+#main-container {
+    position: relative;
+    height: 100vh;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 30px 0 0;
+}
+
+#home-buttons {
+    flex-grow: 2;
+    width:100%;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.shape {
+    width: 62px;
+    height: 62px;
+    position: absolute;
+    border-width: 3px;
+    border-style: solid;
+}
+
+.rombo {
+    border-color:rgba(15, 104, 215, 0.4);
+    top: 50%;
+    left: 80%;
+    transform: rotate(45deg);
+}
+
+.circle {
+    border-radius: 100%;
+    border-color: rgba(216, 158, 0, 0.4);
+    top: 22%;
+    left: 50%;
+}
+
+.square {
+    border-color: rgba(42, 144, 12, 0.4);
+    top: 37%;
+    left: 5%;
+}
+
+.triangle {
+    top: 65%;
+    left: 30%;
+    border-style: none;
+    width: 0;
+    height: 0;
+    border-left: 35px solid transparent;
+    border-right: 35px solid transparent;
+    border-bottom: 62px solid rgb(224, 29, 63, 0.4);
+}
+
+.triangle.outline::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 29px solid transparent;
+    border-right: 29px solid transparent;
+    border-bottom: 52px solid white;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, 7px);
+}
+
+.btn {
+    position: relative;
+    display: block;
+    width: 295px;
+    border-radius: 10px;
+    background: rgb(224,29,63);
+    background: linear-gradient(90deg, rgba(224,29,63,1) 0%, rgba(22,101,215,1) 32%, rgba(216,159,0,1) 68%, rgba(42,144,12,1) 100%);
+    margin: 10px auto;
+    font-size: 22px;
+    padding: 15px 30px;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    border: 0;
+    box-shadow: 0 0 4px -6px;
+}
+
+.btn-outline {
+    background: white;
+    background-color: white;
+    color: black;
+}
+
+.btn-outline::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: calc(100% + 3px + 3px);
+    height: calc(100% + 3px + 3px);
+    z-index: -1;
+    background: linear-gradient(90deg, rgba(224,29,63,1) 0%, rgba(22,101,215,1) 32%, rgba(216,159,0,1) 68%, rgba(42,144,12,1) 100%);;
+    border-radius: 10px;
+}
+#new-game-button {
+    margin-bottom: 120px;
+}
+
+#join-game-button {
+    transform: scale(0.8);
+    margin-bottom: 20px;
+}

@@ -5,11 +5,10 @@ import { ProvaComponent } from './components/prova/prova.component';
 
 
 const routes: Routes = [
-{
-  path: 'home',
-  component: HomeComponent,
-},
-{ path: 'prova', component: ProvaComponent}
+  { path: 'home', component: HomeComponent },
+  { path: 'prova', component: ProvaComponent},
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];
 
 @NgModule({
