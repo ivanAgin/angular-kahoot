@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from 'src/app/services/firebaseService/firebase-service.service';
 
 @Component({
   selector: 'app-prova',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProvaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private firebaseService: FirebaseService) { }
 
   ngOnInit() {
+    this.firebaseService.getSetPreguntas().subscribe( data => {
+      console.log(data)
+    })
   }
 
 }
