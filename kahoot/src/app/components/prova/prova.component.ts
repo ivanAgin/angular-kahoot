@@ -11,7 +11,7 @@ export class ProvaComponent implements OnInit {
   constructor(private firebaseService: FirebaseService) { }
 
   ngOnInit() {
-    this.firebaseService.getSetPreguntas().subscribe( data => {
+    this.firebaseService.getPartides().subscribe( data => {
       console.log(data)
     })
   }

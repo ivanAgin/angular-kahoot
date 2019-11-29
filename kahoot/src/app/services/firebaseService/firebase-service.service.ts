@@ -11,13 +11,7 @@ export class FirebaseService {
 
   constructor(private http: HttpClient,private firestore: AngularFirestore) {}
 
-  public getSetPreguntas(){
-    return this.firestore.collection('preguntas').snapshotChanges();
-
-    /*return this.http.get(`${this.baseUrl}/preguntas.json`).pipe(map(res => {
-      const data = res;
-      console.log("HOLA " + data)
-      return data;
-    }));*/
+  public getPartides(){
+    return this.firestore.collection('partidas').valueChanges();
   }
 }
