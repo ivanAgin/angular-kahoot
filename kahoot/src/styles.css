@@ -146,17 +146,34 @@ input {
 }
 
 #start-users-list {
+    display: block;
     display: flex;
+    flex-wrap: wrap;
     list-style: none;
-    margin: 0;
+    margin: 20px auto;
 }
 
 #start-users-list li {
+    position: relative;
     margin-right: 5px;
-    padding: 5px 30px 5px 15px;
+    padding: 5px 20px;
     color: white;
+    margin-bottom: 5px;
+    border-radius: 30px;
 }
 
 #start-users-list li.back-green {
-    background: 
+    background: #2A8F0D;
+}
+
+#start-users-list li.back-red {
+    background: #E01D3F;
+}
+
+#start-users-list li.back-blue {
+    background: #0F68D7;
+}
+
+#start-users-list li.back-yellow {
+    background: #D89E00;
 }
