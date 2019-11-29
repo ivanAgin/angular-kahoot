@@ -24,6 +24,8 @@ input {
     max-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    padding: 20px 40px;
 }
 
 #logo {
@@ -31,7 +33,7 @@ input {
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 30px 0 0;
+    margin: 0 0 20px;
 }
 
 #home-buttons {
@@ -155,7 +157,8 @@ input {
     display: flex;
     flex-wrap: wrap;
     list-style: none;
-    margin: 20px auto;
+    margin: 20px auto 50px;
+    padding: 0;
 }
 
 #start-users-list li {
@@ -181,4 +184,22 @@ input {
 
 #start-users-list li.back-yellow {
     background: #D89E00;
+}
+
+#start-join {
+    margin-bottom: 20px;
+}
+
+.big-shapes {
+    position: relative;
+    display:flex;
+    margin-bottom: auto;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.big-shapes .shape {
+    position: relative;
+    top: unset;
+    left: unset;
 }
