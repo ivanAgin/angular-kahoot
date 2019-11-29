@@ -145,6 +145,11 @@ input {
     text-align: center;
 }
 
+#main-container h2.btn.btn-outline {
+    letter-spacing: 20px;
+    font-size: 28px;
+}
+
 #start-users-list {
     display: block;
     display: flex;
