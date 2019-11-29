@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators'
+import { map, reduce } from 'rxjs/operators'
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Respuesta } from '../models/respuesta.model';
+import { v4 as uuid } from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +15,51 @@ export class FirebaseService {
 
   public getPartides(){
     return this.firestore.collection('partidas').valueChanges();
+  }
+
+  public getPartida(codi: string){
+    return this.firestore.collection('partidas').doc(codi).valueChanges();
+  }
+
+  public getRespuestasDePartida(codiPartida: string) {
+    return this.firestore.collection('partidas').doc(codiPartida).collection('respuestas').valueChanges();
+  }
+
+  public setAnswer(codiPartida: string, respuesta: Respuesta){
+    return this.firestore.collection('partidas').doc(codiPartida).collection('respuestas').add(JSON.parse(JSON.stringify(respuesta))).then(function (docRef){
+      console.log("Document written with ID: ", docRef.id);
+    })
+    .catch(function (error) {
+      console.error("Error adding document: ", error);
+    });
+  }
+
+  public changePoints(codiPartida: string, usuario: string, point: string){
+    return this.firestore.collection('partidas').doc(codiPartida).collection('puntuaciones').doc(usuario).update({"puntos": point}).then(function (docRef) {
+      console.log("Updated!");
+    })
+    .catch(function (error) {
+      console.error("Error updating document: ", error);
+    });
+  }
+
+  public join(codiPartida: string, usuario: string){
+    return this.firestore.collection('partidas').doc(codiPartida).collection('usuarios').add({"nombre": usuario}).then(function (docRef) {
+      console.log("Updated!");
+    })
+    .catch(function (error) {
+      console.error("Error updating document: ", error);
+    });
+  }
+
+  public unjoin(codiPartida: string, usuario: string) {
+    this.firestore.collection('partidas').doc(codiPartida).collection('usuarios').where("nombre","==",usuario).get().subscribe(
+      data => {
+        data.forEach(function(user){
+          console.log(user.id)
+          //this.firestore.collection('partidas').doc(codiPartida).collection('usuarios').doc(user.id).delete();
+        })
+      }
+    );
   }
 }
