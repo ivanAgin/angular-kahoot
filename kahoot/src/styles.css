@@ -54,6 +54,8 @@ input {
 }
 
 .rombo {
+    width: 60px;
+    height: 60px;
     border-color:rgba(15, 104, 215, 0.4);
     top: 50%;
     left: 80%;
