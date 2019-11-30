@@ -13,6 +13,31 @@ export class FirebaseService {
 
   constructor(private http: HttpClient,private firestore: AngularFirestore) {}
 
+  public createPartida(nomPartida, setPreguntes, users){
+    let partida = this.firestore.collection('partidas').add({
+      "nombre": nomPartida,
+      "preguntas": setPreguntes,
+      "puntuaciones": {
+        "usuario1": "Ivan",
+        "usuario2": "Pol",
+      }
+    }).then( p => {
+      users.forEach( u => {
+        console.log(p.id)
+        // Usuaris
+        p.collection('usuarios').add({
+          "nombre": u
+        })
+        //Puntuacio
+        p.collection('puntuacion').doc(u).set({
+          "puntos": "0"
+        })
+      })
+
+
+    })
+  }
+
   public getPartides(){
     return this.firestore.collection('partidas').valueChanges();
   }
@@ -53,13 +78,12 @@ export class FirebaseService {
   }
 
   public unjoin(codiPartida: string, usuario: string) {
-    this.firestore.collection('partidas').doc(codiPartida).collection('usuarios').where("nombre","==",usuario).get().subscribe(
+    this.firestore.collection('partidas').doc(codiPartida).collection('usuarios', ref => ref.where("nombre", "==", usuario)).get().subscribe(
       data => {
-        data.forEach(function(user){
-          console.log(user.id)
-          //this.firestore.collection('partidas').doc(codiPartida).collection('usuarios').doc(user.id).delete();
+        let userId = data.forEach(function (user) {
+          user.ref.delete();
         })
       }
-    );
+    );  
   }
 }

@@ -23,9 +23,10 @@ export class ProvaComponent implements OnInit {
     })
     let respuesta = new Respuesta('pregunta2', 'respuesta3', 'usuario1')
     this.firebaseService.setAnswer('Xo2ebUaeFpfoTJtMuLyL', respuesta);
-    this.firebaseService.changePoints('Xo2ebUaeFpfoTJtMuLyL','usuario1','100');*/
+    this.firebaseService.changePoints('Xo2ebUaeFpfoTJtMuLyL','usuario1','100');
     this.firebaseService.join('Xo2ebUaeFpfoTJtMuLyL','Juanito')
-    this.firebaseService.unjoin('Xo2ebUaeFpfoTJtMuLyL', 'Juanito')
+    this.firebaseService.unjoin('Xo2ebUaeFpfoTJtMuLyL', 'Pol')
+    this.firebaseService.createPartida("partida_prova","set1",["Ivan","Martin"])*/
   }
 
 }
