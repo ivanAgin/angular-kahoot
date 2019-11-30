@@ -25,12 +25,9 @@ export class FirebaseService {
       users.forEach( u => {
         console.log(p.id)
         // Usuaris
-        p.collection('usuarios').add({
-          "nombre": u
-        })
-        //Puntuacio
-        p.collection('puntuacion').doc(u).set({
-          "puntos": "0"
+        p.collection('usuarios').doc(u).set({
+          "usuario": u,
+          "puntos": 0
         })
       })
 
@@ -59,8 +56,8 @@ export class FirebaseService {
     });
   }
 
-  public changePoints(codiPartida: string, usuario: string, point: string){
-    return this.firestore.collection('partidas').doc(codiPartida).collection('puntuaciones').doc(usuario).update({"puntos": point}).then(function (docRef) {
+  public changePoints(codiPartida: string, usuario: string, point: number){
+    return this.firestore.collection('partidas').doc(codiPartida).collection('usuarios').doc(usuario).update({"puntos": point}).then(function (docRef) {
       console.log("Updated!");
     })
     .catch(function (error) {
@@ -80,10 +77,14 @@ export class FirebaseService {
   public unjoin(codiPartida: string, usuario: string) {
     this.firestore.collection('partidas').doc(codiPartida).collection('usuarios', ref => ref.where("nombre", "==", usuario)).get().subscribe(
       data => {
-        let userId = data.forEach(function (user) {
+        data.forEach(function (user) {
           user.ref.delete();
         })
       }
     );  
+  }
+
+  public getWinners(codiPartida: string){
+    return this.firestore.collection('partidas').doc(codiPartida).collection('usuarios', ref => ref.orderBy("puntos","desc").limit(3)).valueChanges();
   }
 }

@@ -8,7 +8,7 @@ import { Respuesta } from 'src/app/services/models/respuesta.model';
   styleUrls: ['./prova.component.css']
 })
 export class ProvaComponent implements OnInit {
-
+  puntos
   constructor(private firebaseService: FirebaseService) { }
 
   ngOnInit() {
@@ -23,10 +23,14 @@ export class ProvaComponent implements OnInit {
     })
     let respuesta = new Respuesta('pregunta2', 'respuesta3', 'usuario1')
     this.firebaseService.setAnswer('Xo2ebUaeFpfoTJtMuLyL', respuesta);
-    this.firebaseService.changePoints('Xo2ebUaeFpfoTJtMuLyL','usuario1','100');
+    this.firebaseService.changePoints('Xo2ebUaeFpfoTJtMuLyL','usuario1',0);
     this.firebaseService.join('Xo2ebUaeFpfoTJtMuLyL','Juanito')
     this.firebaseService.unjoin('Xo2ebUaeFpfoTJtMuLyL', 'Pol')
-    this.firebaseService.createPartida("partida_prova","set1",["Ivan","Martin"])*/
+    this.firebaseService.createPartida("partida_prova","set1",["Ivan","Martin"])
+    this.firebaseService.getWinners('2wiUNOLY8TQzh6BD3Ano').subscribe(data => {
+      console.log(data)
+    })
+    this.firebaseService.changePoints('2wiUNOLY8TQzh6BD3Ano','Pol',0);*/
   }
 
 }
