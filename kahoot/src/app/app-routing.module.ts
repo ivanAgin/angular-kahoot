@@ -14,10 +14,10 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'prova', component: ProvaComponent},
   { path: 'play', component: PlayStartComponent},
-  { path: 'play/:id/question/:id', component: PlayQuestionComponent},
+  { path: 'play/:id', component: PlayQuestionComponent},
   { path: 'play/:id/finish', component: PlayFinishComponent},
   { path: 'admin', component: AdminStartComponent},
-  { path: 'admin/:id/question/:id', component: AdminQuestionComponent},
+  { path: 'admin/:id', component: AdminQuestionComponent},
   { path: 'admin/:id/finish', component: AdminFinishComponent},
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', pathMatch: 'full', redirectTo: 'home' }

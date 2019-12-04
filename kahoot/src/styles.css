@@ -361,7 +361,59 @@ input {
     border-color: #0F68D7;
 }
 
+#stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 60px;
+    z-index: 1;
+}
 
+#stats .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.stat .stat-column {
+    width: 70px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
 
+#second .stat-column {
+    height: 150px;
+    background: #2A8F0D;
+}
 
+#first .stat-column {
+    height: 225px;
+    background: #E01D3F;
+}
+
+#third .stat-column {
+    height: 75px;
+    background: #0F68D7;
+}
+
+.stat .stat-column span {
+    margin: 10px 0;
+    font-size: 40px;
+}
+
+.stat .username {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.stat .points {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+#finish-button {
+    margin-top: auto;
+}
