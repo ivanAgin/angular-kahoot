@@ -6,7 +6,7 @@
         <div class="shape circle"></div>
         <div class="shape rombo"></div>
         <button id="new-game-button" class="btn btn-outline">New game</button> 
-        <input type="number" placeholder="Enter code..." [(ngModel)]="codi_partida">
-        <button id="join-game-button" class="btn btn-outline">Join game</button>
+        <input type="number" placeholder="Enter code..." [(ngModel)]="codiPartida">
+        <button id="join-game-button" class="btn btn-outline" (click)="joinGame()" [disabled]="!codiPartida" >Join game</button>
     </div>
 </div>

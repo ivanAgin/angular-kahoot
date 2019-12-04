@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-play-start',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayStartComponent implements OnInit {
 
-  constructor() { }
+
+  users = ["martin", "joan", "ivan", "pol","alex","pancracio","jose"];
+
+  private id: string;
+
+  constructor(private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit() {
+
+    this.id = this.activatedRoute.snapshot.paramMap.get("id");
+
   }
 
 }
