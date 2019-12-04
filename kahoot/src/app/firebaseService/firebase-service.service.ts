@@ -41,6 +41,10 @@ export class FirebaseService {
   public getPartida(codi: string){
     return this.realtime.list('/partidas/'+codi).valueChanges();
   }
+
+  public getUsersDePartida(codi: string){
+    return this.realtime.list('/partidas/' + codi + '/usuarios').valueChanges();
+  }
   
   public getRespuestasDePartida(codiPartida: string) {
     return this.realtime.list('/partidas/' + codiPartida + '/respuestas').valueChanges();

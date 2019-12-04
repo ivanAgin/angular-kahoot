@@ -18,6 +18,10 @@ input {
     font-weight: 400;
 }
 
+input[hidden]{
+    display: none;
+}
+
 #main-container {
     position: relative;
     height: 100vh;
@@ -121,6 +125,10 @@ input {
     border: 0;
     box-shadow: 0 0 4px -6px;
     cursor: pointer;
+}
+
+.btn[hidden]{
+    display: none;
 }
 
 .btn-outline {

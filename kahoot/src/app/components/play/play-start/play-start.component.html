@@ -3,7 +3,7 @@
     <h1>El código de partida es</h1>
     <h2 class="btn btn-outline">{{id}}</h2>
     <ul id="start-users-list">
-        <li *ngFor="let user of users">{{user}}</li>
+        <li *ngFor="let user of users | async">{{user.nombre}}</li>
     </ul>
     <div class="big-shapes">
         <div class="shape triangle outline"></div>
@@ -11,6 +11,7 @@
         <div class="shape circle"></div>
         <div class="shape rombo"></div>
     </div>
-    <input type="text" placeholder="Introduce tu alias" />
-    <button id="start-join" class="btn btn-outline">Join game</button>
+    <input [hidden]="joined" type="text" #alias placeholder="Introduce tu alias" />
+    <button [hidden]="joined" id="start-join" class="btn btn-outline" (click)="joinGame(alias.value)">Join game</button>
+    <button [hidden]="!joined" id="start-join" class="btn btn-outline" (click)="changeName()">Change name</button>
 </div>
