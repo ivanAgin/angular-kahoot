@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http'
 
@@ -13,6 +14,12 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProvaComponent } from './components/prova/prova.component';
 import { environment } from 'src/environments/environment';
+import { PlayStartComponent } from './components/play/play-start/play-start.component';
+import { PlayQuestionComponent } from './components/play/play-question/play-question.component';
+import { PlayFinishComponent } from './components/play/play-finish/play-finish.component';
+import { AdminStartComponent } from './components/admin/admin-start/admin-start.component';
+import { AdminQuestionComponent } from './components/admin/admin-question/admin-question.component';
+import { AdminFinishComponent } from './components/admin/admin-finish/admin-finish.component';
 
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
@@ -32,10 +39,17 @@ const fireConfig = {
     AppComponent,
     HomeComponent,
     ProvaComponent,
+    PlayStartComponent,
+    PlayQuestionComponent,
+    PlayFinishComponent,
+    AdminStartComponent,
+    AdminQuestionComponent,
+    AdminFinishComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(fireConfig),
     AngularFireDatabaseModule, // realtime

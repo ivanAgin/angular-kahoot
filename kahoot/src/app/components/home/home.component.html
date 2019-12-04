@@ -1,1 +1,12 @@
-<p>Working on home!</p>
+<div id="main-container">
+    <div id="logo"><img width="60" src="../../assets/img/logo.png" alt="Logo"></div>
+    <div id="home-buttons">
+        <div class="shape triangle outline"></div>
+        <div class="shape square"></div>
+        <div class="shape circle"></div>
+        <div class="shape rombo"></div>
+        <button id="new-game-button" class="btn btn-outline">New game</button> 
+        <input type="number" placeholder="Enter code..." [(ngModel)]="codiPartida">
+        <button id="join-game-button" class="btn btn-outline" (click)="joinGame()" [disabled]="!codiPartida" >Join game</button>
+    </div>
+</div>

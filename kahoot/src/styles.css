@@ -1,1 +1,424 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box;
+    font-family: Roboto, sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+input {
+    display: block;
+    width: 295px;
+    border: 1px solid black;
+    margin: 10px auto;
+    font-size: 22px;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: 400;
+}
+
+#main-container {
+    position: relative;
+    height: 100vh;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 20px 40px;
+}
+
+#logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 0 20px;
+}
+
+#home-buttons {
+    flex-grow: 2;
+    width:100%;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.shape {
+    width: 62px;
+    height: 62px;
+    position: absolute;
+    border-width: 3px;
+    border-style: solid;
+}
+
+.rombo {
+    width: 60px;
+    height: 60px;
+    border-color:rgba(15, 104, 215, 0.4);
+    top: 50%;
+    left: 80%;
+    transform: rotate(45deg);
+}
+
+.circle {
+    border-radius: 100%;
+    border-color: rgba(216, 158, 0, 0.4);
+    top: 22%;
+    left: 50%;
+}
+
+.square {
+    border-color: rgba(42, 144, 12, 0.4);
+    top: 37%;
+    left: 5%;
+}
+
+.triangle {
+    top: 65%;
+    left: 30%;
+    border-style: none;
+    width: 0;
+    height: 0;
+    border-left: 35px solid transparent;
+    border-right: 35px solid transparent;
+    border-bottom: 62px solid rgb(224, 29, 63, 0.4);
+}
+
+.triangle.outline::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 29px solid transparent;
+    border-right: 29px solid transparent;
+    border-bottom: 52px solid white;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, 7px);
+}
+
+.btn:disabled {
+    opacity: 0.4;
+}
+
+.btn {
+    position: relative;
+    display: block;
+    width: 295px;
+    border-radius: 10px;
+    background: rgb(224,29,63);
+    background: linear-gradient(90deg, rgba(224,29,63,1) 0%, rgba(22,101,215,1) 32%, rgba(216,159,0,1) 68%, rgba(42,144,12,1) 100%);
+    margin: 10px auto;
+    font-size: 22px;
+    padding: 15px 30px;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    border: 0;
+    box-shadow: 0 0 4px -6px;
+    cursor: pointer;
+}
+
+.btn-outline {
+    background: white;
+    background-color: white;
+    color: black;
+}
+
+.btn-outline::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: calc(100% + 3px + 3px);
+    height: calc(100% + 3px + 3px);
+    z-index: -1;
+    background: linear-gradient(90deg, rgba(224,29,63,1) 0%, rgba(22,101,215,1) 32%, rgba(216,159,0,1) 68%, rgba(42,144,12,1) 100%);;
+    border-radius: 10px;
+}
+#new-game-button {
+    margin-bottom: 120px;
+}
+
+#join-game-button {
+    transform: scale(0.8);
+    margin-bottom: 20px;
+}
+
+#main-container h1 {
+    font-size: 24px;
+    display: block;
+    text-align: center;
+}
+
+#main-container h2.btn.btn-outline {
+    letter-spacing: 20px;
+    font-size: 28px;
+}
+
+#start-users-list {
+    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 20px auto 50px;
+    padding: 0;
+}
+
+#start-users-list li {
+    position: relative;
+    margin-right: 5px;
+    padding: 5px 20px;
+    color: white;
+    margin-bottom: 5px;
+    border-radius: 30px;
+}
+
+#start-users-list li:nth-child(4n+1) {
+    background: #2A8F0D;
+}
+
+#start-users-list li:nth-child(4n+2) {
+    background: #E01D3F;
+}
+
+#start-users-list li:nth-child(4n+3) {
+    background: #0F68D7;
+}
+
+#start-users-list li:nth-child(4n+4) {
+    background: #D89E00;
+}
+
+.cross {
+    position: relative;
+    top: 2px;
+    margin-left: 6px;
+    margin-right: -12px;
+}
+#start-join {
+    margin-bottom: 20px;
+}
+
+.big-shapes {
+    position: relative;
+    display:flex;
+    margin-bottom: auto;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.big-shapes .shape {
+    position: relative;
+    top: unset;
+    left: unset;
+}
+
+#question-timer {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#question-timer .circle {
+    width: 90px;
+    height: 90px;
+    border-radius: 100%;
+    border-style: solid;
+    border-width: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#question-timer .circle.circle-blue {
+    border-color: #0F68D7;
+}
+
+#question-timer .circle.circle-red {
+    border-color: #E01D3F;
+}
+
+#question-timer .circle.circle-green {
+    border-color: #2A8F0D;
+}
+
+#question-timer .circle.circle-yellow {
+    border-color: #D89E00;
+}
+
+#main-container h1.question {
+    font-weight: 500;
+}
+
+#question-timer .circle span {
+    font-size: 24px;
+}
+
+#answers {
+    list-style: none;
+    margin: auto auto 0;
+    padding: 0;
+    width: 100%;
+}
+
+#answers li {
+    position: relative;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+#answers li:nth-child(1) {
+    background: #E01D3F;
+}
+
+#answers li:nth-child(2) {
+    background: #0F68D7;
+}
+
+#answers li:nth-child(3) {
+    background: #D89E00;
+}
+
+#answers li:nth-child(4) {
+    background: #2A8F0D;
+}
+
+#answers li .shape {
+    z-index: 1;
+    top: unset;
+    left: unset;
+    position: relative;
+    margin-right: 20px;
+    flex-shrink: 0;
+    background: white;
+    width: 50px;
+    height: 50px;
+    border-color: white;
+}
+
+#answers li span {
+    flex-grow: 2;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+#answers li .rombo {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+}
+
+#answers li .triangle {
+    background: transparent;
+    width: 0;
+    height: 0;
+    border-left: 35px solid transparent;
+    border-right: 35px solid transparent;
+    border-bottom: 62px solid rgb(224, 29, 63, 0.4);
+    margin-right: 0px;
+    transform: translateX(-5px);
+}
+
+#answers li.selected {
+    border-style: solid;
+    border-width: 3px;
+    background: white;
+}
+
+#answers li.selected:nth-child(1) {
+    border-color: #E01D3F;
+    color: #E01D3F;
+}
+
+#answers li.selected:nth-child(2) {
+    border-color: #0F68D7;
+    color: #0F68D7;
+}
+
+#answers li.selected:nth-child(3) {
+    border-color: #D89E00;
+    color: #D89E00;
+}
+
+#answers li.selected:nth-child(4) {
+    border-color: #2A8F0D;
+    color: #2A8F0D;
+}
+
+#answers li.selected .circle {
+    border-color: #D89E00;
+}
+
+#answers li.selected .square {
+    border-color: #2A8F0D;
+}
+
+#answers li.selected .rombo {
+    border-color: #0F68D7;
+}
+
+#stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 60px;
+    z-index: 1;
+}
+
+#stats .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat .stat-column {
+    width: 70px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+
+#second .stat-column {
+    height: 150px;
+    background: #2A8F0D;
+}
+
+#first .stat-column {
+    height: 225px;
+    background: #E01D3F;
+}
+
+#third .stat-column {
+    height: 75px;
+    background: #0F68D7;
+}
+
+.stat .stat-column span {
+    margin: 10px 0;
+    font-size: 40px;
+}
+
+.stat .username {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.stat .points {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+#finish-button {
+    margin-top: auto;
+}
