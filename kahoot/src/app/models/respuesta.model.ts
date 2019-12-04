@@ -1,4 +1,4 @@
-export class Respuesta{
+export class RespuestaUsuario{
     pregunta    : string 
     respuesta   : string
     usuario     : string
