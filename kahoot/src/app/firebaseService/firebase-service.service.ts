@@ -15,10 +15,19 @@ export class FirebaseService {
 
   constructor(private http: HttpClient,private realtime: AngularFireDatabase) {}
 
-  public createPartida(nomPartida, setPreguntes){
-    let partida = new Partida(nomPartida,setPreguntes)
+  public createPartida(codiPartida,nomPartida, setPreguntes){
+    let partida = new Partida(codiPartida,nomPartida,setPreguntes)
     return this.realtime.list('/partidas').push(partida).then( (ref) => {
       return ref
+    })
+  }
+
+  public getPartidaByCodi(codi){
+    const self = this;
+    this.realtime.database.ref('/partidas').orderByChild('codi').equalTo(codi).on("value", function (snapshot) {
+      snapshot.forEach(data => {
+        console.log(data.key)
+      });
     })
   }
 

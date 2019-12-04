@@ -9,3 +9,7 @@ export class RespuestaUsuario{
         this.usuario    = usuario;
     }
 }
+
+export class SetRespuesta{
+    
+}

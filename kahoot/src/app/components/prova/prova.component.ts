@@ -30,8 +30,9 @@ export class ProvaComponent implements OnInit {
     //this.firebaseService.join('partida1', 'Juanito') 
     //this.firebaseService.changePoints('partida1','-LvH9k6kk-mN-rnFJ_2Z',1000);
     //this.firebaseService.unjoin('partida1', 'Juanito')
-    //this.firebaseService.createPartida("partida_prova","set1")
+    //this.firebaseService.createPartida("PartidaGuay","partida_prova","set1")
     //this.firebaseService.getWinners('partida1')
+    //this.firebaseService.getPartidaByCodi("PartidaGuay")
   }
 
 }
