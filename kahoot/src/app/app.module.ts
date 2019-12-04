@@ -14,6 +14,8 @@ import { HomeComponent } from './components/home/home.component';
 import { ProvaComponent } from './components/prova/prova.component';
 import { environment } from 'src/environments/environment';
 
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+
 const fireConfig = {
   apiKey: "AIzaSyCsRAF0JSzF0xUWqUxYaQwhO9kdnXMD7r8",
   authDomain: "kahoot-angular.firebaseapp.com",
@@ -36,6 +38,7 @@ const fireConfig = {
     AppRoutingModule,
     HttpClientModule,
     AngularFireModule.initializeApp(fireConfig),
+    AngularFireDatabaseModule, // realtime
     AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
     AngularFireStorageModule // storage
