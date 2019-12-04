@@ -6,6 +6,7 @@ import { RespuestaUsuario } from '../models/respuesta.model';
 import { v4 as uuid } from 'uuid';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Partida } from '../models/partida.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +24,12 @@ export class FirebaseService {
   }
 
   public getPartidaByCodi(codi){
-    const self = this;
-    this.realtime.database.ref('/partidas').orderByChild('codi').equalTo(codi).on("value", function (snapshot) {
-      snapshot.forEach(data => {
-        console.log(data.key)
-      });
+    return Observable.create((observer) => {
+      this.realtime.database.ref('/partidas').orderByChild('codi').equalTo(codi).on("value", (snapshot) => {
+        snapshot.forEach(data => {
+          observer.next(data.key)
+        });
+      })
     })
   }
 
