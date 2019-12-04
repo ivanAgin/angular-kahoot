@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, reduce } from 'rxjs/operators'
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Respuesta } from '../models/respuesta.model';
+import { RespuestaUsuario } from '../models/respuesta.model';
 import { v4 as uuid } from 'uuid';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { Partida } from '../models/partida.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,28 +14,13 @@ export class FirebaseService {
   private baseUrl = 'https://kahoot-angular.firebaseio.com/'
 
   constructor(private http: HttpClient,private realtime: AngularFireDatabase) {}
-/*
-  public createPartida(nomPartida, setPreguntes, users){
-    let partida = this.firestore.collection('partidas').add({
-      "nombre": nomPartida,
-      "preguntas": setPreguntes,
-      "puntuaciones": {
-        "usuario1": "Ivan",
-        "usuario2": "Pol",
-      }
-    }).then( p => {
-      users.forEach( u => {
-        console.log(p.id)
-        // Usuaris
-        p.collection('usuarios').doc(u).set({
-          "usuario": u,
-          "puntos": 0
-        })
-      })
 
-
+  public createPartida(nomPartida, setPreguntes){
+    let partida = new Partida(nomPartida,setPreguntes)
+    return this.realtime.list('/partidas').push(partida).then( (ref) => {
+      return ref
     })
-  }*/
+  }
 
   public getPartides(){
     return this.realtime.list('/partidas').valueChanges();
@@ -49,7 +35,7 @@ export class FirebaseService {
     return this.realtime.list('/partidas/' + codiPartida + '/respuestas').valueChanges();
   }
 
-  public setAnswer(codiPartida: string, respuesta: Respuesta){
+  public setAnswer(codiPartida: string, respuesta: RespuestaUsuario){
     return this.realtime.list('/partidas/' + codiPartida + '/respuestas').push(respuesta).then(function (docRef){
       console.log("Document written with ID: ", docRef.key);
     })
@@ -59,8 +45,9 @@ export class FirebaseService {
   }
 
   public changePoints(codiPartida: string, usuario: string, point: number){
-    this.realtime
-    return this.realtime.list('/partidas/' + codiPartida).update('puntuacion',{usuario: point}).then(function (docRef) {
+    console.log("HOLA?")
+    //return this.realtime.list('/partidas/' + codiPartida + '/usuarios').update(usuario, { "nombre": usuario, "puntos": 1000 }).then(function (docRef) {
+    return this.realtime.list('/partidas/' + codiPartida + '/usuarios/' + usuario).set('/puntos', point).then(function (docRef) {
       console.log("Updated!");
     })
     .catch(function (error) {
@@ -69,34 +56,31 @@ export class FirebaseService {
   }
 
   public join(codiPartida: string, usuario: string){
-    return this.realtime.list('/partidas/' + codiPartida + '/usuarios').push({"nombre": usuario }).then(function (docRef) {
+    return this.realtime.list('/partidas/' + codiPartida + '/usuarios').push({"nombre": usuario ,"puntos" : 0}).then(function (docRef) {
       console.log("Updated!");
+      return docRef.key;
     })
     .catch(function (error) {
       console.error("Error updating document: ", error);
+      return null
     });
   }
 
-  /*public unjoin(codiPartida: string, usuario: string) {
-    //this.realtime.database.ref('/partidas/' + codiPartida + '/usuarios').orderByChild('nombre').equalTo(usuario).
-    let usuarios = this.realtime.list('/partidas/' + codiPartida + '/usuarios').valueChanges().subscribe((usuarios) => {
-      usuarios.forEach(u => {
-        if(u['nombre']==usuario){
-          console.log(u.);
-        }
+  public unjoin(codiPartida: string, usuario: string) {
+    const self = this;
+    this.realtime.database.ref('/partidas/' + codiPartida + '/usuarios').orderByChild('nombre').equalTo(usuario).on("value", function(snapshot){
+      snapshot.forEach(data => {
+        self.realtime.list('/partidas/' + codiPartida + '/usuarios/' + data.key).remove()
+        console.log(data.key)
       });
     })
+  }
 
-    /*this.firestore.collection('partidas').doc(codiPartida).collection('usuarios', ref => ref.where("nombre", "==", usuario)).get().subscribe(
-      data => {
-        data.forEach(function (user) {
-          user.ref.delete();
-        })
-      }
-    );  
-  }*/
-
-  /*public getWinners(codiPartida: string){
-    return this.firestore.collection('partidas').doc(codiPartida).collection('usuarios', ref => ref.orderBy("puntos","desc").limit(3)).valueChanges();
-  }*/
+  public getWinners(codiPartida: string){
+    this.realtime.database.ref('/partidas/' + codiPartida + '/usuarios').orderByChild('puntos').limitToLast(3).on("value",function(snapshot){
+      snapshot.forEach(data => {
+        console.log(data.key)
+      })
+    })
+  }
 }
