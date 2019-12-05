@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from 'src/app/services/firebaseService/firebase-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,13 +10,13 @@ export class HomeComponent implements OnInit {
 
   codi_partida: number;
 
-  constructor(private firebase:FirebaseService) { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
   }
 
   newGame() {
-    this.firebase.
+    this.router.navigateByUrl("/admin/start");
   }
 
 }
