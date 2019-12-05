@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from 'src/app/services/firebaseService/firebase-service.service';
 
 @Component({
   selector: 'app-home',
@@ -9,9 +10,13 @@ export class HomeComponent implements OnInit {
 
   codi_partida: number;
 
-  constructor() { }
+  constructor(private firebase:FirebaseService) { }
 
   ngOnInit() {
+  }
+
+  newGame() {
+    this.firebase.
   }
 
 }
