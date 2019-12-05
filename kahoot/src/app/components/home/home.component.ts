@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   }
 
   newGame() {
-    this.router.navigateByUrl("/admin/start");
+    this.router.navigateByUrl("/admin");
   }
 
 }
