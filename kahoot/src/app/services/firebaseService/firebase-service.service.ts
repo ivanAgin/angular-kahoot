@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, reduce } from 'rxjs/operators'
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { RespuestaUsuario } from '../models/respuesta.model';
+import { RespuestaUsuario } from '../../models/respuesta.model';
 import { v4 as uuid } from 'uuid';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Partida } from '../models/partida.model';
+import { Partida } from '../../models/partida.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -28,6 +28,7 @@ export class FirebaseService {
       this.realtime.database.ref('/partidas').orderByChild('codi').equalTo(codi).on("value", (snapshot) => {
         snapshot.forEach(data => {
           observer.next(data.key)
+          //k = data.key
         });
       })
     })

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from 'src/app/firebaseService/firebase-service.service';
+import { FirebaseService } from 'src/app/services/firebaseService/firebase-service.service';
 import { RespuestaUsuario } from 'src/app/models/respuesta.model';
 
 @Component({
@@ -32,9 +32,8 @@ export class ProvaComponent implements OnInit {
     //this.firebaseService.unjoin('partida1', 'Juanito')
     //this.firebaseService.createPartida("PartidaGuay","partida_prova","set1")
     //this.firebaseService.getWinners('partida1')
-    let a = this.firebaseService.getPartidaByCodi("PartidaGuay").subscribe( (key) => {
-      console.log(key)
-    })
+    let a = this.firebaseService.getPartidaByCodi("PartidaGuay")
+    console.log(a)
   }
 
 }
