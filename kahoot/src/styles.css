@@ -101,6 +101,10 @@ input {
     transform: translate(-50%, 7px);
 }
 
+.btn:disabled {
+    opacity: 0.4;
+}
+
 .btn {
     position: relative;
     display: block;
@@ -116,6 +120,7 @@ input {
     font-weight: 700;
     border: 0;
     box-shadow: 0 0 4px -6px;
+    cursor: pointer;
 }
 
 .btn-outline {
@@ -173,19 +178,19 @@ input {
     border-radius: 30px;
 }
 
-#start-users-list li.back-green {
+#start-users-list li:nth-child(4n+1) {
     background: #2A8F0D;
 }
 
-#start-users-list li.back-red {
+#start-users-list li:nth-child(4n+2) {
     background: #E01D3F;
 }
 
-#start-users-list li.back-blue {
+#start-users-list li:nth-child(4n+3) {
     background: #0F68D7;
 }
 
-#start-users-list li.back-yellow {
+#start-users-list li:nth-child(4n+4) {
     background: #D89E00;
 }
 

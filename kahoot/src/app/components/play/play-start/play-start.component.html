@@ -1,15 +1,9 @@
 <div id="main-container">
     <div id="logo"><img width="60" src="../../assets/img/logo.png" alt="Logo"></div>
     <h1>El código de partida es</h1>
-    <h2 class="btn btn-outline">1234</h2>
+    <h2 class="btn btn-outline">{{id}}</h2>
     <ul id="start-users-list">
-        <li class="back-green">polribas14</li>
-        <li class="back-red">koubura</li>
-        <li class="back-blue">priis4</li>
-        <li class="back-yellow">sirholler</li>
-        <li class="back-green">iMartiinX</li>
-        <li class="back-red">caca123</li>
-        <li class="back-blue">holoholo</li>
+        <li *ngFor="let user of users">{{user}}</li>
     </ul>
     <div class="big-shapes">
         <div class="shape triangle outline"></div>
