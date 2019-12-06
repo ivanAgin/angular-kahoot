@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, reduce } from 'rxjs/operators'
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { RespuestaUsuario } from '../../models/respuesta.model';
+import { Respuesta  } from '../../models/respuesta.model';
 import { v4 as uuid } from 'uuid';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Partida } from '../../models/partida.model';
 import { Observable } from 'rxjs';
+import { Usuario } from 'src/app/models/usuario.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,8 @@ export class FirebaseService {
 
   constructor(private http: HttpClient,private realtime: AngularFireDatabase) {}
 
-  public createPartida(codiPartida,nomPartida, setPreguntes){
-    let partida = new Partida(codiPartida,nomPartida,setPreguntes)
+  public createPartida(codiPartida,nomPartida, setPreguntes, estado){
+    let partida = new Partida(codiPartida,nomPartida,setPreguntes, estado)
     return this.realtime.list('/partidas').push(partida).then( (ref) => {
       return ref
     })
@@ -36,18 +37,19 @@ export class FirebaseService {
 
   public getPartides(){
     return this.realtime.list('/partidas').valueChanges();
-    //return this.firestore.collection('partidas').valueChanges();
   }
 
   public getPartida(codi: string){
-    return this.realtime.list('/partidas/'+codi).valueChanges();
+    return this.realtime.list('/partidas/' + codi).valueChanges().pipe(
+      map(data => this.pipePartida(data))
+    );
   }
-  
+   
   public getRespuestasDePartida(codiPartida: string) {
     return this.realtime.list('/partidas/' + codiPartida + '/respuestas').valueChanges();
   }
 
-  public setAnswer(codiPartida: string, respuesta: RespuestaUsuario){
+  public setAnswer(codiPartida: string, respuesta: Respuesta){
     return this.realtime.list('/partidas/' + codiPartida + '/respuestas').push(respuesta).then(function (docRef){
       console.log("Document written with ID: ", docRef.key);
     })
@@ -99,4 +101,23 @@ export class FirebaseService {
   public getSetsQuestions() {
     return this.realtime.list('/preguntas').snapshotChanges();
   }
+
+  /***************************************************
+   *                    PIPES
+   ***************************************************/
+  private pipePartida(data) {
+    console.log(data);
+    let partida:Partida = new Partida(null, null, null, null);
+    partida.codi = <string>data[0];
+    partida.estado = <string>data[1];
+    partida.nombre = <string>data[2];
+    partida.preguntas = <string>data[3];
+    partida.respuestas = <Respuesta[]>data[4]; //transformem d'object a array
+    partida.usuarios = <Usuario[]>data[5]; //transformem d'object a array
+    console.log(partida);
+    return partida;
+  }
+
+
+
 }

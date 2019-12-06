@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebaseService/firebase-service.service';
-import { RespuestaUsuario } from 'src/app/models/respuesta.model';
 
 @Component({
   selector: 'app-prova',
