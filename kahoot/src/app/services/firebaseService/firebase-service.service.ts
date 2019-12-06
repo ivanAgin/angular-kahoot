@@ -95,4 +95,8 @@ export class FirebaseService {
       })
     })
   }
+
+  public getSetsQuestions() {
+    return this.realtime.list('/preguntas').snapshotChanges();
+  }
 }

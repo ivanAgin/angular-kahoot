@@ -32,8 +32,11 @@ export class ProvaComponent implements OnInit {
     //this.firebaseService.unjoin('partida1', 'Juanito')
     //this.firebaseService.createPartida("PartidaGuay","partida_prova","set1")
     //this.firebaseService.getWinners('partida1')
-    let a = this.firebaseService.getPartidaByCodi("PartidaGuay")
-    console.log(a)
+    //this.firebaseService.getPartidaByCodi("PartidaGuay")
+    this.firebaseService.getSetsQuestions().subscribe( (questions) => {
+      console.log(questions)
+    })
+    
   }
 
 }
