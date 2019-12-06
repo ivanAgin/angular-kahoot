@@ -19,12 +19,14 @@ export class GameService {
     this.firebase.getPartida(this.idPartida).subscribe(
       data => {
         const id_set:string = data.preguntas;
-        this.firebase.getSetQuestions(id_set).subscribe(
-          data => {
-            this.preguntes = data
-            console.log(this.preguntes);
-          }
-        );
+        if(!this.preguntes) {
+          this.firebase.getSetQuestions(id_set).subscribe(
+            data => {
+              this.preguntes = data
+              console.log(this.preguntes);
+            }
+          );
+        }
       }
     );
   }
