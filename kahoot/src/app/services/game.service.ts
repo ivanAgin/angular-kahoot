@@ -10,7 +10,7 @@ export class GameService {
   nomUsuari: string;
   punts: number;
   pregunta_seleccionada: string;
-  //preguntes:Pregunta[];
+  preguntes:Pregunta[];
 
   constructor(private firebase:FirebaseService) { }
 
@@ -19,7 +19,12 @@ export class GameService {
     this.firebase.getPartida(this.idPartida).subscribe(
       data => {
         const id_set:string = data.preguntas;
-        //this.firebase.getSetsQuestions(id_set)
+        this.firebase.getSetQuestions(id_set).subscribe(
+          data => {
+            this.preguntes = data
+            console.log(this.preguntes);
+          }
+        );
       }
     );
   }
