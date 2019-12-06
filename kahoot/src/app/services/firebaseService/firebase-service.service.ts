@@ -70,14 +70,7 @@ export class FirebaseService {
   }
 
   public join(codiPartida: string, usuario: string){
-    return this.realtime.list('/partidas/' + codiPartida + '/usuarios').push({"nombre": usuario ,"puntos" : 0}).then(function (docRef) {
-      console.log("Updated!");
-      return docRef.key;
-    })
-    .catch(function (error) {
-      console.error("Error updating document: ", error);
-      return null
-    });
+    return this.realtime.list('/partidas/' + codiPartida + '/usuarios').push({"nombre": usuario ,"puntos" : 0});
   }
 
   public unjoin(codiPartida: string, usuario: string) {
@@ -106,15 +99,13 @@ export class FirebaseService {
    *                    PIPES
    ***************************************************/
   private pipePartida(data) {
-    console.log(data);
     let partida:Partida = new Partida(null, null, null, null);
     partida.codi = <string>data[0];
     partida.estado = <string>data[1];
     partida.nombre = <string>data[2];
     partida.preguntas = <string>data[3];
-    partida.respuestas = <Respuesta[]>data[4]; //transformem d'object a array
-    partida.usuarios = <Usuario[]>data[5]; //transformem d'object a array
-    console.log(partida);
+    partida.respuestas = Object.values(<Respuesta[]>data[4]); //transformem d'object a array
+    partida.usuarios = Object.values(<Usuario[]>data[5]); //transformem d'object a array
     return partida;
   }
 
