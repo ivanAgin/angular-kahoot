@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'play/:id/finish', component: PlayFinishComponent},
   { path: 'admin', component: AdminStartComponent},
   { path: 'admin/:id', component: AdminQuestionComponent},
-  { path: 'admin/:id/finish', component: AdminFinishComponent},
+  { path: 'admin/:id/finish', component: AdminFinishComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];

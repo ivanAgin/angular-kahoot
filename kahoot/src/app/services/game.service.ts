@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebaseService/firebase-service.service';
-import { Partida } from '../models/partida.model';
-//import { Pregunta } from '../models/';
+import { Pregunta } from '../models/pregunta.model';
 
 @Injectable({
   providedIn: 'root'

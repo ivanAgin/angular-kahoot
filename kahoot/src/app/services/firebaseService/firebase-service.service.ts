@@ -8,6 +8,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Partida } from '../../models/partida.model';
 import { Observable } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario.model';
+import { Pregunta } from 'src/app/models/pregunta.model';
 
 @Injectable({
   providedIn: 'root'
