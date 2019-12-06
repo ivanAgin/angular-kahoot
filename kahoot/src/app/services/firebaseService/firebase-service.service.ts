@@ -8,6 +8,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Partida } from '../../models/partida.model';
 import { Observable } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario.model';
+import { Pregunta } from 'src/app/models/pregunta.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class FirebaseService {
 
   constructor(private http: HttpClient,private realtime: AngularFireDatabase) {}
 
-  public createPartida(codiPartida,nomPartida, setPreguntes){
-    let partida = new Partida(codiPartida,nomPartida,setPreguntes)
+  public createPartida(codiPartida,nomPartida, setPreguntes, estado){
+    let partida = new Partida(codiPartida,nomPartida,setPreguntes, estado)
     return this.realtime.list('/partidas').push(partida).then( (ref) => {
       return ref
     })
@@ -70,14 +71,7 @@ export class FirebaseService {
   }
 
   public join(codiPartida: string, usuario: string){
-    return this.realtime.list('/partidas/' + codiPartida + '/usuarios').push({"nombre": usuario ,"puntos" : 0}).then(function (docRef) {
-      console.log("Updated!");
-      return docRef.key;
-    })
-    .catch(function (error) {
-      console.error("Error updating document: ", error);
-      return null
-    });
+    return this.realtime.list('/partidas/' + codiPartida + '/usuarios').push({"nombre": usuario ,"puntos" : 0});
   }
 
   public unjoin(codiPartida: string, usuario: string) {
@@ -100,16 +94,21 @@ export class FirebaseService {
     return this.realtime.list('/preguntas').snapshotChanges();
   }
 
+  public getSetQuestions(id:string) {
+    return this.realtime.list<Pregunta>(`/preguntas/${id}`).valueChanges();
+  }
+
   /***************************************************
    *                    PIPES
    ***************************************************/
   private pipePartida(data) {
-    let partida:Partida = new Partida(null, null, null);
+    let partida:Partida = new Partida(null, null, null, null);
     partida.codi = <string>data[0];
-    partida.nombre = <string>data[1];
-    partida.preguntas = <string>data[2];
-    partida.respuestas = <Respuesta[]>data[3]; //transformem d'object a array
-    partida.usuarios = <Usuario[]>data[4]; //transformem d'object a array
+    partida.estado = <string>data[1];
+    partida.nombre = <string>data[2];
+    partida.preguntas = <string>data[3];
+    partida.respuestas = Object.values(<Respuesta[]>data[4]); //transformem d'object a array
+    partida.usuarios = Object.values(<Usuario[]>data[5]); //transformem d'object a array
     return partida;
   }
 
