@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayQuestionComponent implements OnInit {
 
+  haRespondido = false; //este flag es temporal para alternar en el html
+
   constructor() { }
 
   ngOnInit() {
