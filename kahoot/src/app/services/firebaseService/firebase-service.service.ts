@@ -95,6 +95,10 @@ export class FirebaseService {
     return this.realtime.list('/preguntas').snapshotChanges();
   }
 
+  public getSetQuestions(id:string) {
+    return this.realtime.list<Pregunta>(`/preguntas/${id}`).valueChanges();
+  }
+
   /***************************************************
    *                    PIPES
    ***************************************************/

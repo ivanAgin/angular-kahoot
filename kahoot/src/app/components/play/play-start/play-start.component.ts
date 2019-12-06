@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebaseService/firebase-service.service';
 import { Partida } from 'src/app/models/partida.model';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-play-start',
@@ -20,7 +21,8 @@ export class PlayStartComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private firebase:FirebaseService,
-              private router:Router ) { }
+              private router:Router,
+              private game:GameService ) { }
 
   ngOnInit() {
 
@@ -30,6 +32,7 @@ export class PlayStartComponent implements OnInit {
       data => {
         this.partida = data;
         if(this.partida.estado != "-1") {
+          this.game.pregunta_seleccionada = this.partida.estado; //establim pregunta
           this.router.navigateByUrl(`/play/${this.id_partida}/game`);
         }
       }
@@ -42,6 +45,9 @@ export class PlayStartComponent implements OnInit {
     this.participating = true;
     this.firebase.join(this.id_partida, this.alias).then((docRef) => {
         this.button_text = "Waiting to start...";
+        this.game.nomUsuari = this.alias;
+        this.game.punts = 0;
+        this.game.setPartida(this.id_partida);
         //docRef.key;
       })
       .catch(function (error) {
