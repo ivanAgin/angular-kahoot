@@ -11,8 +11,6 @@ import { GameService } from 'src/app/services/game.service';
 })
 export class PlayStartComponent implements OnInit {
 
-  users = ["martin", "joan", "ivan", "pol","alex","pancracio","jose"];
-
   private id_partida: string;
   partida:Partida;
   participating:boolean = false;
