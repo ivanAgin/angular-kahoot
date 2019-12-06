@@ -92,9 +92,7 @@ export class FirebaseService {
 
   public getWinners(codiPartida: string){
     this.realtime.database.ref('/partidas/' + codiPartida + '/usuarios').orderByChild('puntos').limitToLast(3).on("value",function(snapshot){
-      snapshot.forEach(data => {
-        console.log(data.key)
-      })
+      console.log(snapshot.val())
     })
   }
 
