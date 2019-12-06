@@ -28,16 +28,12 @@ export class PlayQuestionComponent implements OnInit {
   ngOnInit() {
     this.name = this.game.nomUsuari;
 
-    this.realtime.getPartida("partida1"/*this.game.idPartida*/)
-    this.realtime.getPartida("partida1"/*this.game.idPartida*/).subscribe( 
-      (p) => 
-      {
-        console.log(p);
+    this.realtime.getPartida("partida1"/*this.game.idPartida*/).subscribe(
+      data => {
+        console.log(data);
       }
-    )
-    /*
-    this.pregunta = this.preguntes[index];
-    */
+    );
+    
   }
 
 }

@@ -7,6 +7,7 @@ import { v4 as uuid } from 'uuid';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Partida } from '../../models/partida.model';
 import { Observable } from 'rxjs';
+import { Usuario } from 'src/app/models/usuario.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,12 +37,12 @@ export class FirebaseService {
 
   public getPartides(){
     return this.realtime.list('/partidas').valueChanges();
-    //return this.firestore.collection('partidas').valueChanges();
   }
 
   public getPartida(codi: string){
-    return this.realtime.database.ref('/partidas/' + codi);
-    return this.realtime.list<Partida>('/partidas/' + codi).valueChanges();
+    return this.realtime.list('/partidas/' + codi).valueChanges().pipe(
+      map(data => this.pipePartida(data))
+    );
   }
    
   public getRespuestasDePartida(codiPartida: string) {
@@ -100,4 +101,20 @@ export class FirebaseService {
   public getSetsQuestions() {
     return this.realtime.list('/preguntas').snapshotChanges();
   }
+
+  /***************************************************
+   *                    PIPES
+   ***************************************************/
+  private pipePartida(data) {
+    let partida:Partida = new Partida(null, null, null);
+    partida.codi = <string>data[0];
+    partida.nombre = <string>data[1];
+    partida.preguntas = <string>data[2];
+    partida.respuestas = <Respuesta[]>data[3]; //transformem d'object a array
+    partida.usuarios = <Usuario[]>data[4]; //transformem d'object a array
+    return partida;
+  }
+
+
+
 }
