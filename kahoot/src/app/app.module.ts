@@ -21,6 +21,8 @@ import { AdminStartComponent } from './components/admin/admin-start/admin-start.
 import { AdminQuestionComponent } from './components/admin/admin-question/admin-question.component';
 import { AdminFinishComponent } from './components/admin/admin-finish/admin-finish.component';
 
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+
 const fireConfig = {
   apiKey: "AIzaSyCsRAF0JSzF0xUWqUxYaQwhO9kdnXMD7r8",
   authDomain: "kahoot-angular.firebaseapp.com",
@@ -50,6 +52,7 @@ const fireConfig = {
     FormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(fireConfig),
+    AngularFireDatabaseModule, // realtime
     AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
     AngularFireStorageModule // storage

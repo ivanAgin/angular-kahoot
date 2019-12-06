@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  codi_partida: number;
+  codiPartida: string;
 
-  constructor() { }
+  joinGame(): void{
+    this.router.navigateByUrl(`/play/${this.codiPartida}`);
+  }
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
