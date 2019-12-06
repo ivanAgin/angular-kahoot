@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, reduce } from 'rxjs/operators'
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { RespuestaUsuario } from '../../models/respuesta.model';
+import { Respuesta  } from '../../models/respuesta.model';
 import { v4 as uuid } from 'uuid';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Partida } from '../../models/partida.model';
@@ -40,14 +40,15 @@ export class FirebaseService {
   }
 
   public getPartida(codi: string){
-    return this.realtime.list('/partidas/'+codi).valueChanges();
+    return this.realtime.database.ref('/partidas/' + codi);
+    return this.realtime.list<Partida>('/partidas/' + codi).valueChanges();
   }
-  
+   
   public getRespuestasDePartida(codiPartida: string) {
     return this.realtime.list('/partidas/' + codiPartida + '/respuestas').valueChanges();
   }
 
-  public setAnswer(codiPartida: string, respuesta: RespuestaUsuario){
+  public setAnswer(codiPartida: string, respuesta: Respuesta){
     return this.realtime.list('/partidas/' + codiPartida + '/respuestas').push(respuesta).then(function (docRef){
       console.log("Document written with ID: ", docRef.key);
     })

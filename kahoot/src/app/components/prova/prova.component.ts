@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebaseService/firebase-service.service';
-import { RespuestaUsuario } from 'src/app/models/respuesta.model';
+import { Respuesta } from 'src/app/models/respuesta.model';
 
 @Component({
   selector: 'app-prova',
@@ -21,7 +21,7 @@ export class ProvaComponent implements OnInit {
     /*this.firebaseService.getRespuestasDePartida('partida1').subscribe( data => {
       console.log(data)
     })*/
-    /*let respuesta = new RespuestaUsuario('pregunta2', 'respuesta3', 'usuario1')
+    /*let respuesta = new Respuesta('pregunta2', 'respuesta3', 'usuario1')
     this.firebaseService.setAnswer('partida1', respuesta);*/
     /*this.firebaseService.join('partida1', 'Juanito')
     this.firebaseService.join('partida1', 'Pol')
