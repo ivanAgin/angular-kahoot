@@ -279,6 +279,7 @@ input {
 #answers li:nth-child(1),
 #answer.back-red {
     background: #E01D3F;
+    width: 100%;
 }
 
 #answers li:nth-child(2),
