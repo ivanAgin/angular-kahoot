@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FirebaseService } from 'src/app/firebaseService/firebase-service.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FirebaseService } from 'src/app/services/firebaseService/firebase-service.service';
+import { Partida } from 'src/app/models/partida.model';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-play-start',
@@ -9,32 +11,56 @@ import { FirebaseService } from 'src/app/firebaseService/firebase-service.servic
 })
 export class PlayStartComponent implements OnInit {
 
+  private id_partida: string;
+  partida:Partida;
+  participating:boolean = false;
+  button_text:string = "Join Game";
+  alias:string = "";
 
-  private users;
-  private joined  = false;
-  private id: string;
-  private idPartida: string;
-  private usuari: string;
-
-  constructor(private activatedRoute: ActivatedRoute, private firebaseService: FirebaseService ) {
-    this.id = this.activatedRoute.snapshot.paramMap.get("id");
-    this.idPartida = this.firebaseService.getPartidaByCodi(+this.id);
-    this.users = this.firebaseService.getUsersDePartida(/*this.idPartida*/"partida1");    
-  }
-
-  joinGame(usuari: string) {
-    this.usuari = usuari;
-    this.firebaseService.join(/*codiPartida*/"partida1",usuari);
-    this.joined = true;
-  }
-
-  changeName() {
-    this.firebaseService.unjoin(/*codiPartida*/"partida1",this.usuari);
-    this.joined = false;
-  }
+  constructor(private activatedRoute: ActivatedRoute,
+              private firebase:FirebaseService,
+              private router:Router,
+              private game:GameService ) { }
 
   ngOnInit() {
-    
+
+    this.id_partida = this.activatedRoute.snapshot.paramMap.get("id");
+    this.game.setPartida(this.id_partida)
+
+    this.firebase.getPartida(this.id_partida).subscribe(
+      data => {
+        this.partida = data;
+        if(this.partida.estado != "-1") {
+          if(this.participating) {
+            this.game.pregunta_seleccionada = this.partida.estado; //establim pregunta
+            this.router.navigateByUrl(`/play/${this.id_partida}/game`);
+          }
+          else { //no hem entrat a la partida
+            this.router.navigateByUrl("/");
+          }
+        }
+      }
+    );
+
+  }
+
+  join() {
+    this.button_text = "Joining...";
+    this.participating = true;
+    this.firebase.join(this.id_partida, this.alias).then((docRef) => {
+        this.button_text = "Waiting to start...";
+        this.game.nomUsuari = this.alias;
+        this.game.punts = 0;
+        this.game.refUsuari = docRef.key
+        this.game.setPartida(this.id_partida);
+        this.participating = true;
+        //docRef.key;
+      })
+      .catch(function (error) {
+        this.button_text = "Error";
+        this.participating = false;
+        //null
+      });
   }
 
 }

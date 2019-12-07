@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from 'src/app/firebaseService/firebase-service.service';
-import { RespuestaUsuario } from 'src/app/models/respuesta.model';
+import { FirebaseService } from 'src/app/services/firebaseService/firebase-service.service';
+import { Respuesta } from 'src/app/models/respuesta.model';
 
 @Component({
   selector: 'app-prova',
@@ -21,7 +21,7 @@ export class ProvaComponent implements OnInit {
     /*this.firebaseService.getRespuestasDePartida('partida1').subscribe( data => {
       console.log(data)
     })*/
-    /*let respuesta = new RespuestaUsuario('pregunta2', 'respuesta3', 'usuario1')
+    /*let respuesta = new Respuesta('pregunta2', 'respuesta3', 'usuario1')
     this.firebaseService.setAnswer('partida1', respuesta);*/
     /*this.firebaseService.join('partida1', 'Juanito')
     this.firebaseService.join('partida1', 'Pol')
@@ -32,9 +32,12 @@ export class ProvaComponent implements OnInit {
     //this.firebaseService.unjoin('partida1', 'Juanito')
     //this.firebaseService.createPartida("PartidaGuay","partida_prova","set1")
     //this.firebaseService.getWinners('partida1')
-    /*let a = this.firebaseService.getPartidaByCodi("PartidaGuay").subscribe( (key) => {
-      console.log(key)
+    //this.firebaseService.getPartidaByCodi("PartidaGuay")
+    /*this.firebaseService.getSetsQuestions().subscribe( (questions) => {
+      console.log(questions)
     })*/
+    //this.firebaseService.changeState('-LvS-zoTq6BU294WupnE','-1')
+    
   }
 
 }
