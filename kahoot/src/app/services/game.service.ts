@@ -26,6 +26,7 @@ export class GameService {
         }
 
         //establim set de preguntas
+        
         const id_set:string = data.preguntas;
         if(!this.preguntes) {
           this.firebase.getSetQuestions(id_set).subscribe(

@@ -7,30 +7,29 @@
     </div>
     <h1 *ngIf="pregunta" class="question">{{pregunta.pregunta}}</h1>
     <ul id="answers" *ngIf="!haRespondido && pregunta">
-        <li (click)="responder(0)" [class.selected]="respuesta==0">
+        <li (click)="responder('0')" [class.selected]="respuesta==0">
             <div class="shape triangle outline"></div>
             <span>{{pregunta.respuestas[0]}}</span>
         </li>
-        <li (click)="responder(1)" [class.selected]="respuesta==1">
+        <li (click)="responder('1')" [class.selected]="respuesta==1">
             <div class="shape rombo"></div>
             <span>{{pregunta.respuestas[1]}}</span>
         </li>
-        <li (click)="responder(2)" [class.selected]="respuesta==2">
+        <li (click)="responder('2')" [class.selected]="respuesta==2">
             <div class="shape circle"></div>
             <span>{{pregunta.respuestas[2]}}</span>
         </li>
-        <li (click)="responder(3)" [class.selected]="respuesta==3">
+        <li (click)="responder('3')" [class.selected]="respuesta==3">
             <div class="shape square"></div>
             <span>{{pregunta.respuestas[3]}}</span>
         </li>    
     </ul>
     <div id="ha-respondido" *ngIf="haRespondido">
-        <div id="answer" class="back-red">
-            <div class="shape triangle outline"></div>
-            <span>{{pregunta.respuesta_correcta}}</span>
+        <div id="answer" [ngClass]="{'back-red': pregunta_seleccionada=='0', 'back-blue': pregunta_seleccionada=='1', 'back-yellow': pregunta_seleccionada=='2', 'back-green': pregunta_seleccionada=='3'}">
+            <div class="shape" [ngClass]="{'triangle outline': pregunta_seleccionada=='0', 'rombo': pregunta_seleccionada=='1', 'circle': pregunta_seleccionada=='2', 'square': pregunta_seleccionada=='3'}"></div>
+            <span>{{ pregunta.respuestas[pregunta.respuesta_correcta] }}</span>
         </div>
-        <h2 *ngIf="acertado">¡Respuesta correcta!</h2>
-        <h2 *ngIf="!acertado">Suerte la próxima vez</h2>
+        <h2>{{ acertado ? '¡Respuesta correcta!' : 'Suerte la próxima vez' }}</h2>
         <div id="score">
             <span id="points-span"><span id="points-number">{{ game.punts }}</span> points</span>
         </div>
