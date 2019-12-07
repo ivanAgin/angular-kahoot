@@ -1,6 +1,6 @@
 <div id="main-container">
     <div id="logo"><img width="60" src="../../assets/img/logo.png" alt="Logo"></div>
-    <h1>¡Has ganado!</h1>
+    <h1>{{ title }}</h1>
     <div class="shape triangle outline"></div>
     <div class="shape square"></div>
     <div class="shape circle"></div>
@@ -22,5 +22,5 @@
             <span class="points">{{tercero.puntos}} points</span>
         </div>
     </div>
-    <button id="finish-button" class="btn btn-outline">Finish</button>
+    <button id="finish-button" class="btn btn-outline" (click)="finish()">Finish</button>
 </div>
