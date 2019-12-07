@@ -60,7 +60,6 @@ export class FirebaseService {
   }
 
   public changePoints(codiPartida: string, usuario: string, point: number){
-    console.log("HOLA?")
     //return this.realtime.list('/partidas/' + codiPartida + '/usuarios').update(usuario, { "nombre": usuario, "puntos": 1000 }).then(function (docRef) {
     return this.realtime.list('/partidas/' + codiPartida + '/usuarios/' + usuario).set('/puntos', point).then(function (docRef) {
       console.log("Updated!");
@@ -96,6 +95,15 @@ export class FirebaseService {
 
   public getSetQuestions(id:string) {
     return this.realtime.list<Pregunta>(`/preguntas/${id}`).valueChanges();
+  }
+
+  public changeState(codiPartida,estado){
+    return this.realtime.list('/partidas/' + codiPartida).set('/estado', estado).then(function (docRef) {
+      console.log("Updated!");
+    })
+      .catch(function (error) {
+        console.error("Error updating document: ", error);
+      });
   }
 
   /***************************************************
