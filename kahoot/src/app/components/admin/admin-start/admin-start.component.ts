@@ -21,7 +21,7 @@ export class AdminStartComponent implements OnInit {
 
   ngOnInit() {
       const ret = this.firebase.createPartida(this.id_partida, "holii", "set_1");
-      this.firebase.getPartidaByCodi(this.id_partida).subscribe(
+      this.firebase.getPartida(this.id_partida.toString()).subscribe(
         data => {
           this.partida = data;
         }
