@@ -21,6 +21,7 @@ export class PlayFinishComponent implements OnInit {
 
   ngOnInit() {
     this.realtime.getPartida(this.route.snapshot.paramMap.get("id")).subscribe( (partida) => {
+      console.log(partida.usuarios)
       let sorted = partida.usuarios.sort(function (a, b) {
         return - a.puntos + b.puntos;
       })

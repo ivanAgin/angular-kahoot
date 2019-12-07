@@ -12,6 +12,7 @@ import { GameService } from 'src/app/services/game.service';
 export class PlayStartComponent implements OnInit {
 
   private id_partida: string;
+  private id_user: string;
   partida:Partida;
   participating:boolean = false;
   button_text:string = "Join Game";
@@ -25,13 +26,14 @@ export class PlayStartComponent implements OnInit {
   ngOnInit() {
 
     this.id_partida = this.activatedRoute.snapshot.paramMap.get("id");
+    this.game.setPartida(this.id_partida)
 
     this.firebase.getPartida(this.id_partida).subscribe(
       data => {
         this.partida = data;
         if(this.partida.estado != "-1") {
           this.game.pregunta_seleccionada = this.partida.estado; //establim pregunta
-          this.router.navigateByUrl(`/play/${this.id_partida}/game`);
+          this.router.navigateByUrl(`/play/${this.id_partida}/game/${this.id_user}`);
         }
       }
     );
@@ -45,6 +47,8 @@ export class PlayStartComponent implements OnInit {
         this.button_text = "Waiting to start...";
         this.game.nomUsuari = this.alias;
         this.game.punts = 0;
+        this.id_user = docRef.key
+        this.game.refUsuari = docRef.key
         this.game.setPartida(this.id_partida);
         //docRef.key;
       })

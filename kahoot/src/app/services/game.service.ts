@@ -8,6 +8,7 @@ import { Pregunta } from '../models/pregunta.model';
 export class GameService {
   idPartida: string;
   nomUsuari: string;
+  refUsuari: string;
   punts: number;
   pregunta_seleccionada: string;
   preguntes:Pregunta[];

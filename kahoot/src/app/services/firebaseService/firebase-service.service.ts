@@ -89,6 +89,10 @@ export class FirebaseService {
     })
   }
 
+  public getUsers(codiPartida: string) {
+    return this.realtime.list(`/partidas/${codiPartida}/usuarios`).snapshotChanges();
+  }
+
   public getSetsQuestions() {
     return this.realtime.list('/preguntas').snapshotChanges();
   }
