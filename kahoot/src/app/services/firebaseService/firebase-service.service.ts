@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, reduce } from 'rxjs/operators'
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators'
 import { Respuesta  } from '../../models/respuesta.model';
-import { v4 as uuid } from 'uuid';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Partida } from '../../models/partida.model';
 import { Observable } from 'rxjs';
