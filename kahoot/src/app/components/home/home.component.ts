@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FirebaseService } from 'src/app/services/firebaseService/firebase-service.service';
 
 @Component({
   selector: 'app-home',
@@ -8,14 +9,23 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  codi_partida: number;
+  codiPartida: string;
 
-  constructor(private router:Router) { }
+  joinGame(idPartida: string): void{
+    this.router.navigateByUrl(`/play/${idPartida}`);
+  }
+
+  getIdPartida(): void {
+    var idFirebase = this.firebaseService.getPartidaByCodi(this.codiPartida);
+    this.joinGame(idFirebase);
+  }
+
+  constructor(private router: Router, private firebaseService: FirebaseService) { }
 
   ngOnInit() {
   }
 
-  newGame() {
+  startNewGame() {
     this.router.navigateByUrl("/admin");
   }
 

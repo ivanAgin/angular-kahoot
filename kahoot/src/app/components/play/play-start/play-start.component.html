@@ -1,9 +1,9 @@
 <div id="main-container">
     <div id="logo"><img width="60" src="../../assets/img/logo.png" alt="Logo"></div>
     <h1>El código de partida es</h1>
-    <h2 class="btn btn-outline">{{id}}</h2>
-    <ul id="start-users-list">
-        <li *ngFor="let user of users">{{user}}</li>
+    <h2 class="btn btn-outline" *ngIf="partida">{{ this.partida.codi }}</h2>
+    <ul id="start-users-list" *ngIf="partida">
+        <li *ngFor="let user of partida.usuarios">{{user.nombre}}</li>
     </ul>
     <div class="big-shapes">
         <div class="shape triangle outline"></div>
@@ -11,6 +11,6 @@
         <div class="shape circle"></div>
         <div class="shape rombo"></div>
     </div>
-    <input type="text" placeholder="Introduce tu alias" />
-    <button id="start-join" class="btn btn-outline">Join game</button>
+    <input type="text" placeholder="Introduce tu alias" [(ngModel)]="alias" [disabled]="participating" />
+    <button id="start-join" class="btn btn-outline" [disabled]="participating || alias.length == 0" (click)="join()" >{{ button_text }}</button>
 </div>

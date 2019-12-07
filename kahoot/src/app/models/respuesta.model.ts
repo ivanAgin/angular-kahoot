@@ -1,4 +1,4 @@
-export class RespuestaUsuario{
+export class Respuesta {
     pregunta    : string 
     respuesta   : string
     usuario     : string
@@ -8,8 +8,4 @@ export class RespuestaUsuario{
         this.respuesta  = respuesta;
         this.usuario    = usuario;
     }
-}
-
-export class SetRespuesta{
-    
 }
