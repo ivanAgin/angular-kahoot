@@ -33,9 +33,10 @@ export class ProvaComponent implements OnInit {
     //this.firebaseService.createPartida("PartidaGuay","partida_prova","set1")
     //this.firebaseService.getWinners('partida1')
     //this.firebaseService.getPartidaByCodi("PartidaGuay")
-    this.firebaseService.getSetsQuestions().subscribe( (questions) => {
+    /*this.firebaseService.getSetsQuestions().subscribe( (questions) => {
       console.log(questions)
-    })
+    })*/
+    //this.firebaseService.changeState('-LvS-zoTq6BU294WupnE','-1')
     
   }
 

@@ -60,7 +60,6 @@ export class FirebaseService {
   }
 
   public changePoints(codiPartida: string, usuario: string, point: number){
-    console.log("HOLA?")
     //return this.realtime.list('/partidas/' + codiPartida + '/usuarios').update(usuario, { "nombre": usuario, "puntos": 1000 }).then(function (docRef) {
     return this.realtime.list('/partidas/' + codiPartida + '/usuarios/' + usuario).set('/puntos', point).then(function (docRef) {
       console.log("Updated!");
@@ -86,9 +85,7 @@ export class FirebaseService {
 
   public getWinners(codiPartida: string){
     this.realtime.database.ref('/partidas/' + codiPartida + '/usuarios').orderByChild('puntos').limitToLast(3).on("value",function(snapshot){
-      snapshot.forEach(data => {
-        console.log(data.key)
-      })
+      console.log(snapshot.val())
     })
   }
 
@@ -100,6 +97,15 @@ export class FirebaseService {
     return this.realtime.list<Pregunta>(`/preguntas/${id}`).valueChanges();
   }
 
+  public changeState(codiPartida,estado){
+    return this.realtime.list('/partidas/' + codiPartida).set('/estado', estado).then(function (docRef) {
+      console.log("Updated!");
+    })
+      .catch(function (error) {
+        console.error("Error updating document: ", error);
+      });
+  }
+
   /***************************************************
    *                    PIPES
    ***************************************************/
@@ -109,8 +115,8 @@ export class FirebaseService {
     partida.estado = <string>data[1];
     partida.nombre = <string>data[2];
     partida.preguntas = <string>data[3];
-    partida.respuestas = Object.values(<Respuesta[]>data[4]); //transformem d'object a array
-    partida.usuarios = Object.values(<Usuario[]>data[5]); //transformem d'object a array
+    partida.usuarios = (data[4]) ? Object.values(<Usuario[]>data[4]) : null; //transformem d'object a array
+    partida.respuestas = (data[5]) ? Object.values(<Respuesta[]>data[5]) : null; //transformem d'object a array
     return partida;
   }
 
