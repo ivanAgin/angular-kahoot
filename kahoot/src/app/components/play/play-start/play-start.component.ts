@@ -31,8 +31,13 @@ export class PlayStartComponent implements OnInit {
       data => {
         this.partida = data;
         if(this.partida.estado != "-1") {
-          this.game.pregunta_seleccionada = this.partida.estado; //establim pregunta
-          this.router.navigateByUrl(`/play/${this.id_partida}/game/`);
+          if(this.participating) {
+            this.game.pregunta_seleccionada = this.partida.estado; //establim pregunta
+            this.router.navigateByUrl(`/play/${this.id_partida}/game`);
+          }
+          else { //no hem entrat a la partida
+            this.router.navigateByUrl("/");
+          }
         }
       }
     );
@@ -48,6 +53,7 @@ export class PlayStartComponent implements OnInit {
         this.game.punts = 0;
         this.game.refUsuari = docRef.key
         this.game.setPartida(this.id_partida);
+        this.participating = true;
         //docRef.key;
       })
       .catch(function (error) {

@@ -1,8 +1,8 @@
 <div id="main-container">
     <div id="logo"><img width="60" src="../../assets/img/logo.png" alt="Logo"></div>
     <div id="question-timer">
-        <div class="circle circle-blue"><span>43</span>answers</div>
-        <div class="circle circle-red"><span>26</span>seconds</div>
+        <div class="circle circle-blue"><span>{{ answers_count }}</span>answers</div>
+        <div class="circle circle-red"><span>{{ time }}</span>seconds</div>
         <div class="circle circle-green"><span>{{ game.punts }}</span>points</div>
     </div>
     <h1 *ngIf="pregunta" class="question">{{pregunta.pregunta}}</h1>

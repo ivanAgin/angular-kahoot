@@ -4,7 +4,6 @@ import { GameService } from 'src/app/services/game.service';
 import { FirebaseService } from 'src/app/services/firebaseService/firebase-service.service';
 import { Partida } from 'src/app/models/partida.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-play-question',
@@ -22,7 +21,8 @@ export class PlayQuestionComponent implements OnInit {
   respuesta:number = -1;
   pregunta: Pregunta;
   name: string;
-  answers_count:number;
+  answers_count:number = 0;
+  time:number = 60;
 
 
   constructor(
@@ -42,12 +42,14 @@ export class PlayQuestionComponent implements OnInit {
         
         //Obtenim answer_count
         let i = 0;
-        this.partida.respuestas.forEach((respuesta) => {
-          if(respuesta.pregunta == this.game.preguntes[this.game.pregunta_seleccionada].pregunta) //si la resposta es de la pregunta d'ara
-            i++;
-        });
-        this.answers_count = i;
-
+        if(this.partida.respuestas != null) {
+          this.partida.respuestas.forEach((respuesta) => {
+            if(respuesta.pregunta == this.game.preguntes[this.game.pregunta_seleccionada].pregunta) //si la resposta es de la pregunta d'ara
+              i++;
+          });
+          this.answers_count = i;
+        }
+        else this.answers_count = 0; 
         
       }
     );
