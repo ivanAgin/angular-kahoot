@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'prova', component: ProvaComponent},
   { path: 'play/:id', component: PlayStartComponent},
-  { path: 'play/:id/game/:refUser', component: PlayQuestionComponent},
+  { path: 'play/:id/game', component: PlayQuestionComponent},
   { path: 'play/:id/finish', component: PlayFinishComponent},
   { path: 'admin', component: AdminStartComponent},
   { path: 'admin/:id', component: AdminQuestionComponent},

@@ -117,8 +117,14 @@ export class FirebaseService {
     partida.estado = <string>data[1];
     partida.nombre = <string>data[2];
     partida.preguntas = <string>data[3];
-    partida.usuarios = (data[4]) ? Object.values(<Usuario[]>data[4]) : null; //transformem d'object a array
-    partida.respuestas = (data[5]) ? Object.values(<Respuesta[]>data[5]) : null; //transformem d'object a array
+    if(data.length == 5) {
+      partida.usuarios = (data[4]) ? Object.values(<Usuario[]>data[4]) : null; //transformem d'object a array
+      partida.respuestas = null;
+    }
+    else {
+      partida.respuestas = (data[4]) ? Object.values(<Respuesta[]>data[4]) : null; //transformem d'object a array
+      partida.usuarios = (data[5]) ? Object.values(<Usuario[]>data[5]) : null; //transformem d'object a array
+    }
     return partida;
   }
 

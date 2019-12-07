@@ -10,7 +10,7 @@ export class GameService {
   idPartida: string;
   nomUsuari: string;
   refUsuari: string;
-  punts: number;
+  punts: number = 0;
   pregunta_seleccionada: string;
   preguntes:Pregunta[];
 
@@ -21,15 +21,17 @@ export class GameService {
     this.idPartida = idPartida;
     this.firebase.getPartida(this.idPartida).subscribe(
       data => {
-        if(data.codi == undefined) {
+        if(data == null || data.codi == undefined) {
           this.router.navigateByUrl("/");
         }
+
+        //establim set de preguntas
+        
         const id_set:string = data.preguntas;
         if(!this.preguntes) {
           this.firebase.getSetQuestions(id_set).subscribe(
             data => {
               this.preguntes = data
-              console.log(this.preguntes);
             }
           );
         }
