@@ -3,7 +3,7 @@
     <div id="question-timer">
         <div class="circle circle-blue"><span>43</span>answers</div>
         <div class="circle circle-red"><span>26</span>seconds</div>
-        <div class="circle circle-green"><span>22</span>points</div>
+        <div class="circle circle-green"><span>{{ game.punts }}</span>points</div>
     </div>
     <h1 *ngIf="pregunta" class="question">{{pregunta.pregunta}}</h1>
     <ul id="answers" *ngIf="!haRespondido && pregunta">
