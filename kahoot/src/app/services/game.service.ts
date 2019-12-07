@@ -10,7 +10,7 @@ export class GameService {
   idPartida: string;
   nomUsuari: string;
   refUsuari: string;
-  punts: number;
+  punts: number = 0;
   pregunta_seleccionada: string;
   preguntes:Pregunta[];
 

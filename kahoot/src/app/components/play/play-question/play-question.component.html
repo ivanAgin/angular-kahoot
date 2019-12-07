@@ -32,7 +32,7 @@
         <h2 *ngIf="acertado">¡Respuesta correcta!</h2>
         <h2 *ngIf="!acertado">Suerte la próxima vez</h2>
         <div id="score">
-            <span id="points-span"><span id="points-number">{{puntos}}</span> points</span>
+            <span id="points-span"><span id="points-number">{{ game.punts }}</span> points</span>
         </div>
         <button id="next-question-button" class="btn btn-outline" disabled>Waiting...</button>
     </div>

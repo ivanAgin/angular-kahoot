@@ -18,13 +18,11 @@ export class PlayQuestionComponent implements OnInit {
   preguntes = [];
   partida: Partida;
   id_partida;
-  refUser;
   acertado = false;
-  respuesta = -1;
+  respuesta:number = -1;
   pregunta: Pregunta;
   name: string;
-  puntos = 0;
-
+  answers_count:number;
 
 
   constructor(
@@ -35,24 +33,30 @@ export class PlayQuestionComponent implements OnInit {
 
   ngOnInit() {
     this.name = this.game.nomUsuari;
-    this.id_partida = this.route.snapshot.paramMap.get("id")
-    this.refUser = this.route.snapshot.paramMap.get("refUser")
-    this.preguntes = this.game.preguntes
+    this.id_partida = this.route.snapshot.paramMap.get("id");
+    this.preguntes = this.game.preguntes;
     this.realtime.getPartida(this.id_partida).subscribe(
       p => {
         this.checkState(p)
+        this.partida = p;
+        
+        //Obtenim answer_count
+        let i = 0;
+        this.partida.respuestas.forEach((respuesta) => {
+          if(respuesta.pregunta == this.game.preguntes[this.game.pregunta_seleccionada].pregunta) //si la resposta es de la pregunta d'ara
+            i++;
+        });
+        this.answers_count = i;
+
+        
       }
     );
   }
 
   public checkState(p:Partida){
     if(p.estado=='-2'){
-      this.router.navigateByUrl(`/play/${this.id_partida}/finish`)
+      this.router.navigateByUrl(`/play/${this.id_partida}/finish`);
     }else if(!this.partida || this.partida.estado!=p.estado){
-      /* if(!this.partida){
-        console.log("cambio " + p.estado)
-      }else console.log("cambio " + this.partida.estado + " " + p.estado) */
-      this.partida = p
       this.respuesta = -1;
       this.haRespondido = false;
       this.acertado = false;
@@ -60,7 +64,6 @@ export class PlayQuestionComponent implements OnInit {
         data => {
           this.preguntes = data
           this.pregunta = data[p.estado]
-          //console.log(this.pregunta);
         }
       );
     }
@@ -69,8 +72,8 @@ export class PlayQuestionComponent implements OnInit {
   public responder(p:number){
     this.respuesta = p;
     if(this.pregunta.respuestas[p]==this.pregunta.respuesta_correcta){
-      this.puntos += 10
-      this.realtime.changePoints(this.id_partida,this.refUser,this.puntos)
+      this.game.punts += 10;
+      this.realtime.changePoints(this.id_partida,this.game.refUsuari,this.game.punts)
       this.acertado = true
     }
     this.haRespondido = true; 
