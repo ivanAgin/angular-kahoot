@@ -23,15 +23,14 @@ export class FirebaseService {
     })
   }
 
-  public getPartidaByCodi(codi){
-    return Observable.create((observer) => {
-      this.realtime.database.ref('/partidas').orderByChild('codi').equalTo(codi).on("value", (snapshot) => {
-        snapshot.forEach(data => {
-          observer.next(data.key)
-          //k = data.key
-        });
-      })
-    })
+  public getPartidaByCodi(codi: string){
+    var id: string;
+    this.realtime.database.ref('/partidas').orderByChild('codi').equalTo(codi).on("value", (snapshot) => {
+      snapshot.forEach(data => {
+        id = data.key;
+      });
+    });
+    return id;
   }
 
   public getPartides(){
