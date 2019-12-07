@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebaseService/firebase-service.service';
 import { Partida } from 'src/app/models/partida.model';
 
@@ -13,12 +14,18 @@ export class AdminStartComponent implements OnInit {
   //set_pregunta_seleccionada:SetPregunta;
   partida:Partida;
   id_partida:number = Math.floor(Math.random() * 9999) + 1000;
-
-  constructor(private firebase:FirebaseService) { }
+  
+  constructor(private activatedRoute: ActivatedRoute,
+    private firebase:FirebaseService,
+    private router:Router) { }
 
   ngOnInit() {
       const ret = this.firebase.createPartida(this.id_partida, "holii", "set_1");
-      this.partida = this.firebase.getPartidaByCodi(this.id_partida);
+      this.firebase.getPartidaByCodi(this.id_partida).subscribe(
+        data => {
+          this.partida = data;
+        }
+      );
       console.log(this.partida);
   }
 }
