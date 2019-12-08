@@ -31,16 +31,14 @@ export class AdminStartComponent implements OnInit {
             data => {
               this.partida = data;
               console.log(data);
-            if(this.partida.estado != "-1") {
-                this.game.pregunta_seleccionada = this.partida.estado; //establim pregunta
-                this.router.navigateByUrl(`/admin/${this.id_partida}/game`);
-            }
           }
           );
         })
   }
   iniciPartida(){
     this.firebase.changeState(this.ref_key,0);
+    console.log(this.id_partida);
+    this.router.navigateByUrl(`/admin/${this.ref_key}/game`);
   }
 
 }
