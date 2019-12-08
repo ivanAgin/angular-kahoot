@@ -1,1 +1,30 @@
-<p>admin-question works!</p>
+<div id="main-container">
+    <div id="logo"><img width="60" src="../../assets/img/logo.png" alt="Logo"></div>
+    <div id="question-timer">
+        <div class="circle circle-blue"><span>{{ answers_count }}</span>answers</div>
+        <div class="circle circle-red"><span>{{ time }}</span>seconds</div>
+        <div class="circle circle-green"><span>{{ game.punts }}</span>points</div>
+    </div>
+    <h1 *ngIf="pregunta" class="question">{{pregunta.pregunta}}</h1>
+    <ul id="answers" *ngIf="!haRespondido && pregunta">
+        <li>
+            <div class="shape triangle outline"></div>
+            <span>{{pregunta.respuestas[0]}}</span>
+        </li>
+        <li>
+            <div class="shape rombo"></div>
+            <span>{{pregunta.respuestas[1]}}</span>
+        </li>
+        <li>
+            <div class="shape circle"></div>
+            <span>{{pregunta.respuestas[2]}}</span>
+        </li>
+        <li>
+            <div class="shape square"></div>
+            <span>{{pregunta.respuestas[3]}}</span>
+        </li>    
+    </ul>
+    <div id="siguiente">
+        <button id="next-question-button" class="btn btn-outline" (click)="nextQuestion()">Next Question</button>
+    </div>
+</div>
