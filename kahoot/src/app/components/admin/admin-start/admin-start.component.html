@@ -18,6 +18,10 @@
         <div class="shape circle"></div>
         <div class="shape rombo"></div>
     </div>
-    <button class="btn btn-outline">Select questions set</button>
+    <input placeholder="Enter a title" [(ngModel)]="nombre">
+    <select required [(ngModel)]="set">
+        <option *ngFor="let q of questions" [ngValue]="q">{{q}}</option>
+    </select>
+    <button class="btn btn-outline" [disabled]="!set || !nombre" (click)="createPartida()">Create Game</button>
     <button class="btn btn-outline" [disabled]="!partida" (click)="iniciPartida()">Start Game</button>
 </div>

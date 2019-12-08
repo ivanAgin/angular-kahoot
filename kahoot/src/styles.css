@@ -22,6 +22,18 @@ input[hidden]{
     display: none;
 }
 
+input::before{
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: calc(100% + 3px + 3px);
+    height: calc(100% + 3px + 3px);
+    z-index: -1;
+    background: linear-gradient(90deg, rgba(224,29,63,1) 0%, rgba(22,101,215,1) 32%, rgba(216,159,0,1) 68%, rgba(42,144,12,1) 100%);;
+    border-radius: 10px;
+}
+
 #main-container {
     position: relative;
     height: 100vh;
