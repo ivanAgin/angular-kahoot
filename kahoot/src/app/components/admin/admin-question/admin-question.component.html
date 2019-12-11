@@ -3,7 +3,7 @@
     <div id="question-timer">
         <div class="circle circle-blue"><span>{{ answers_count }}</span>answers</div>
         <div class="circle circle-red" [ngClass]="{'clickable': answers_count >= partida.usuarios.length}" (click)="stopQuestion()"><span>{{ time }}</span>seconds</div>
-        <div class="circle circle-green"><span>{{ game.punts }}</span>points</div>
+        <div class="circle circle-green"><span>{{ partida.usuarios.length }}</span>users</div>
     </div>
     <h1 *ngIf="pregunta" class="question">{{pregunta.pregunta}}</h1>
     <ul id="answers" *ngIf="!haRespondido && pregunta">
