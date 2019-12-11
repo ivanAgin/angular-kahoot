@@ -80,6 +80,7 @@ input::before{
     align-items: center;
     width: 100%;
     margin: 0 0 20px;
+    cursor: pointer;
 }
 
 #home-buttons {

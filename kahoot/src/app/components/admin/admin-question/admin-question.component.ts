@@ -126,23 +126,21 @@ export class AdminQuestionComponent implements OnInit {
       this.partida.respuestas.forEach((respuesta) => {
         if(respuesta.pregunta == this.game.pregunta_seleccionada) { //si la resposta es de la pregunta d'ara
           i++;
-        }
-        console.log(respuesta);
-        switch(respuesta.pregunta) {
-          case "0":
+          console.log(respuesta.respuesta);
+          if(respuesta.respuesta == "0") {
             this.first_counter++;
-            break;
-          case "1":
+          }
+          else if(respuesta.respuesta == "1") {
             this.second_counter++;
-            break;
-          case "2":
+          }
+          else if(respuesta.respuesta == "2") {
             this.third_counter++;
-            break;
-          case "3":
+          }
+          else if(respuesta.respuesta == "3") {
             this.fourth_counter++;
-            break;
+          }
         }
-
+        
       });
       this.answers_count = i;
     }
