@@ -18,5 +18,5 @@
         </select>
     </div>
     <button *ngIf="!partida" class="btn btn-outline" [disabled]="!set || !nombre" (click)="createPartida()">Create Game</button>
-    <button class="btn btn-outline" *ngIf="partida" [disabled]="partida.usuarios.length < 3" (click)="iniciPartida()">Start Game</button>
+    <button class="btn btn-outline" *ngIf="partida" [disabled]="!partida || !partida.usuarios || partida.usuarios.length < 3" (click)="iniciPartida()">Start Game</button>
 </div>
