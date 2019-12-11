@@ -10,15 +10,23 @@ import { FirebaseService } from 'src/app/services/firebaseService/firebase-servi
 export class HomeComponent implements OnInit {
 
   codiPartida: string;
+  join_button_text:string = "Join game";
 
-  joinGame(idPartida: string): void{
-    this.router.navigateByUrl(`/play/${idPartida}`);
+  async joinGame(){
+    this.join_button_text = "Joining...";
+    this.firebaseService.getPartidaByCodi(this.codiPartida).then((idFirebase:string) => {
+      if(idFirebase == "-1") {
+        this.join_button_text = "Error";
+        setTimeout(() => {
+          this.join_button_text = "Join Game";
+        }, 3000);
+      }
+      else {
+        this.router.navigateByUrl(`/play/${idFirebase}`);
+      }
+    });
   }
 
-  getIdPartida(): void {
-    var idFirebase = this.firebaseService.getPartidaByCodi(this.codiPartida);
-    this.joinGame(idFirebase);
-  }
 
   constructor(private router: Router, private firebaseService: FirebaseService) { }
 

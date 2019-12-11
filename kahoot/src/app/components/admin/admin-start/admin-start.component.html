@@ -1,16 +1,9 @@
 <div id="main-container">
-    <div id="logo"><img width="60" src="../../assets/img/logo.png" alt="Logo"></div>
+    <div id="logo" (click)="game.home()"><img width="60" src="../../assets/img/logo.png" alt="Logo"></div>
     <h1>El código de partida es</h1>
     <h2 class="btn btn-outline">{{ id_partida }}</h2>
-    <ul id="start-users-list" *ngIf="partida && partida.usuarios">
+    <ul id="start-users-list" *ngIf="partida && partida.usuarios" >
         <li *ngFor="let user of partida.usuarios">{{user.nombre}}</li> 
-        <!--<li class="back-green">polribas14<img class="cross" src="../../assets/img/delete.svg"></li>
-        <li class="back-red">koubura<img class="cross" src="../../assets/img/delete.svg"></li>
-        <li class="back-blue">priis4<img class="cross" src="../../assets/img/delete.svg"></li>
-        <li class="back-yellow">sirholler<img class="cross" src="../../assets/img/delete.svg"></li>
-        <li class="back-green">iMartiinX<img class="cross" src="../../assets/img/delete.svg"></li>
-        <li class="back-red">caca123<img class="cross" src="../../assets/img/delete.svg"></li>
-        <li class="back-blue">holoholo<img class="cross" src="../../assets/img/delete.svg"></li> -->
     </ul>
     <div class="big-shapes">
         <div class="shape triangle outline"></div>
@@ -18,12 +11,12 @@
         <div class="shape circle"></div>
         <div class="shape rombo"></div>
     </div>
-    <input placeholder="Enter a title" [(ngModel)]="nombre">
-    <div class="select-style">
-    <select required [(ngModel)]="set">
-        <option *ngFor="let q of questions" [ngValue]="q">{{q}}</option>
-    </select>
+    <input placeholder="Enter a title" [(ngModel)]="nombre" *ngIf="!partida">
+    <div class="select-style" *ngIf="!partida">
+        <select required [(ngModel)]="set">
+            <option *ngFor="let q of questions" [ngValue]="q">{{q}}</option>
+        </select>
     </div>
-    <button class="btn btn-outline" [disabled]="!set || !nombre" (click)="createPartida()">Create Game</button>
-    <button class="btn btn-outline" [disabled]="!partida" (click)="iniciPartida()">Start Game</button>
+    <button *ngIf="!partida" class="btn btn-outline" [disabled]="!set || !nombre" (click)="createPartida()">Create Game</button>
+    <button class="btn btn-outline" *ngIf="partida" [disabled]="!partida || !partida.usuarios || partida.usuarios.length < 3" (click)="iniciPartida()">Start Game</button>
 </div>

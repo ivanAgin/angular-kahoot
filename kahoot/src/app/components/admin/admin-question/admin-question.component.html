@@ -1,30 +1,34 @@
 <div id="main-container">
-    <div id="logo"><img width="60" src="../../assets/img/logo.png" alt="Logo"></div>
-    <div id="question-timer">
+    <div id="logo" (click)="game.home()"><img width="60" src="../../assets/img/logo.png" alt="Logo"></div>
+    <div id="question-timer" *ngIf="partida">
         <div class="circle circle-blue"><span>{{ answers_count }}</span>answers</div>
-        <div class="circle circle-red"><span>{{ time }}</span>seconds</div>
-        <div class="circle circle-green"><span>{{ game.punts }}</span>points</div>
+        <div class="circle circle-red" [ngClass]="{'clickable': answers_count >= partida.usuarios.length}" (click)="stopQuestion()"><span>{{ time }}</span>seconds</div>
+        <div class="circle circle-green"><span>{{ partida.usuarios.length }}</span>users</div>
     </div>
     <h1 *ngIf="pregunta" class="question">{{pregunta.pregunta}}</h1>
     <ul id="answers" *ngIf="!haRespondido && pregunta">
         <li>
             <div class="shape triangle outline"></div>
             <span>{{pregunta.respuestas[0]}}</span>
+            <span class="counter">{{ first_counter }}</span>
         </li>
         <li>
             <div class="shape rombo"></div>
             <span>{{pregunta.respuestas[1]}}</span>
+            <span class="counter">{{ second_counter }}</span>
         </li>
         <li>
             <div class="shape circle"></div>
             <span>{{pregunta.respuestas[2]}}</span>
+            <span class="counter">{{ third_counter }}</span>
         </li>
         <li>
             <div class="shape square"></div>
             <span>{{pregunta.respuestas[3]}}</span>
+            <span class="counter">{{ fourth_counter }}</span>
         </li>    
     </ul>
     <div id="siguiente">
-        <button id="next-question-button" class="btn btn-outline" (click)="nextQuestion()">Next Question</button>
+        <button id="next-question-button" class="btn btn-outline" (click)="nextQuestion()" [disabled]="this.time > 0">{{ game.preguntes.length > this.estadoActual+1 ? 'Next Question' : 'Finish'}}</button>
     </div>
 </div>

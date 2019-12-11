@@ -15,7 +15,7 @@ export class AdminQuestionComponent implements OnInit {
 
   //Atributs de partida
   partida: Partida;
-  ref_key:string;
+  id_partida:string;
   pregunta_seleccionada:string;
   acertado:boolean = false;
   pregunta: Pregunta;
@@ -25,6 +25,10 @@ export class AdminQuestionComponent implements OnInit {
   time:number = 60;
   timer;
   estadoActual = 0;
+  first_counter:number = 0;
+  second_counter:number = 0;
+  third_counter:number = 0;
+  fourth_counter:number = 0;
 
   constructor(
     private game: GameService,
@@ -33,7 +37,8 @@ export class AdminQuestionComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.ref_key = this.route.snapshot.paramMap.get("id");
+    this.name = this.game.nomUsuari;
+    this.id_partida = this.route.snapshot.paramMap.get("id");
     
     this.fetchPartida(); //ja activa el timer
         
@@ -42,12 +47,23 @@ export class AdminQuestionComponent implements OnInit {
   public startQuestion() {
     this.acertado = false;
     this.pregunta_seleccionada = null;
+    this.first_counter = 0;
+    this.second_counter = 0;
+    this.third_counter = 0;
+    this.fourth_counter = 0;
     this.startTimer();
   }
   
   nextQuestion(){
-    this.estadoActual = (this.question_count>this.estadoActual+1) ? this.estadoActual+1 : -2 ;
-    this.realtime.changeState(this.ref_key,this.estadoActual)
+    this.estadoActual = (this.game.preguntes.length > this.estadoActual+1) ? this.estadoActual+1 : -2 ;
+    this.realtime.changeState(this.id_partida,this.estadoActual)
+  }
+
+  stopQuestion() {
+    if(this.answers_count >= this.partida.usuarios.length) {
+      this.time = 0;
+      clearInterval(this.timer);
+    }
   }
 
   private startTimer() {
@@ -56,7 +72,8 @@ export class AdminQuestionComponent implements OnInit {
     this.timer = setInterval(() => {
       if(this.time <= 0) {
         clearInterval(this.timer);
-        this.nextQuestion();
+        this.time = 0;
+
       }
       else this.time--;
     }, 1000);
@@ -64,9 +81,9 @@ export class AdminQuestionComponent implements OnInit {
 
   private fetchPartida() {
     //Obtenim partida
-    this.realtime.getPartida(this.ref_key).subscribe(
+    this.realtime.getPartida(this.id_partida).subscribe(
       p => {
-        this.getQuestions(p)
+        this.checkState(p);
         this.partida = p;
         
         //Obtenim answer_count
@@ -76,28 +93,54 @@ export class AdminQuestionComponent implements OnInit {
     );
   }
 
-  private getQuestions(p:Partida){
-    if(p.estado!='-2'){
+  private checkState(p:Partida){
+    if(p.estado=='-2'){
+      this.router.navigateByUrl(`/play/${this.id_partida}/finish`);
+    }
+    else if(p.estado=='-1') {
+      this.router.navigateByUrl(`/play/${this.id_partida}`);
+    }
+    else if(!this.partida || this.partida.estado!=p.estado){
+      
+      //canviem
       this.realtime.getSetQuestions(p.preguntas).subscribe( //Obtenim la següent pregunta...
         data => {
           this.game.preguntes = data;
-          this.question_count = data.length
+          this.game.pregunta_seleccionada = p.estado;
           this.pregunta = data[p.estado];
+          this.answers_count = 0;
           this.startQuestion();
         }
       );
-    }else{
-      this.router.navigateByUrl(`admin/${this.ref_key}/finish`)
     }
   }
 
 
   private getAnswerCount() {
     let i = 0;
+    this.first_counter = 0;
+    this.second_counter = 0;
+    this.third_counter = 0;
+    this.fourth_counter = 0;
     if(this.partida!=null && this.partida.respuestas != null) {
       this.partida.respuestas.forEach((respuesta) => {
-        if(respuesta.pregunta == this.game.pregunta_seleccionada) //si la resposta es de la pregunta d'ara
+        if(respuesta.pregunta == this.game.pregunta_seleccionada) { //si la resposta es de la pregunta d'ara
           i++;
+          console.log(respuesta.respuesta);
+          if(respuesta.respuesta == "0") {
+            this.first_counter++;
+          }
+          else if(respuesta.respuesta == "1") {
+            this.second_counter++;
+          }
+          else if(respuesta.respuesta == "2") {
+            this.third_counter++;
+          }
+          else if(respuesta.respuesta == "3") {
+            this.fourth_counter++;
+          }
+        }
+        
       });
       this.answers_count = i;
     }

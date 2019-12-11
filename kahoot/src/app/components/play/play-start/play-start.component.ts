@@ -30,12 +30,13 @@ export class PlayStartComponent implements OnInit {
     this.firebase.getPartida(this.id_partida).subscribe(
       data => {
         this.partida = data;
-        if(this.partida.estado != "-1") {
+        if(this.partida.estado !== "-1") {
           if(this.participating) {
             this.game.pregunta_seleccionada = this.partida.estado; //establim pregunta
             this.router.navigateByUrl(`/play/${this.id_partida}/game`);
           }
           else { //no hem entrat a la partida
+            this.game.reset();
             this.router.navigateByUrl("/");
           }
         }

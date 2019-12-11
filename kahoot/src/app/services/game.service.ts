@@ -22,6 +22,7 @@ export class GameService {
     this.firebase.getPartida(this.idPartida).subscribe(
       data => {
         if(data == null || data.codi == undefined) {
+          this.reset();
           this.router.navigateByUrl("/");
         }
 
@@ -37,6 +38,20 @@ export class GameService {
         }
       }
     );
+  }
+
+  reset() {
+    this.idPartida = null;
+    this.nomUsuari = null;
+    this.refUsuari = null;
+    this.punts = null;
+    this.pregunta_seleccionada = null;
+    this.preguntes = null;
+  }
+
+  home() {
+    this.reset();
+    this.router.navigateByUrl("/");
   }
 
 }

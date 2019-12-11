@@ -1,5 +1,5 @@
 <div id="main-container">
-    <div id="logo"><img width="60" src="../../assets/img/logo.png" alt="Logo"></div>
+    <div id="logo" (click)="game.home()"><img width="60" src="../../assets/img/logo.png" alt="Logo"></div>
     <div id="question-timer">
         <div class="circle circle-blue"><span>{{ answers_count }}</span>answers</div>
         <div class="circle circle-red"><span>{{ time }}</span>seconds</div>
@@ -25,8 +25,8 @@
         </li>    
     </ul>
     <div id="ha-respondido" *ngIf="haRespondido">
-        <div id="answer" [ngClass]="{'back-red': pregunta_seleccionada=='0', 'back-blue': pregunta_seleccionada=='1', 'back-yellow': pregunta_seleccionada=='2', 'back-green': pregunta_seleccionada=='3'}">
-            <div class="shape" [ngClass]="{'triangle outline': pregunta_seleccionada=='0', 'rombo': pregunta_seleccionada=='1', 'circle': pregunta_seleccionada=='2', 'square': pregunta_seleccionada=='3'}"></div>
+        <div id="answer" [ngClass]="{'back-red': pregunta.respuesta_correcta=='0', 'back-blue': pregunta.respuesta_correcta=='1', 'back-yellow': pregunta.respuesta_correcta=='2', 'back-green': pregunta.respuesta_correcta=='3'}">
+            <div class="shape" [ngClass]="{'triangle outline': pregunta.respuesta_correcta=='0', 'rombo': pregunta.respuesta_correcta=='1', 'circle': pregunta.respuesta_correcta=='2', 'square': pregunta.respuesta_correcta=='3'}"></div>
             <span>{{ pregunta.respuestas[pregunta.respuesta_correcta] }}</span>
         </div>
         <h2>{{ acertado ? '¡Respuesta correcta!' : 'Suerte la próxima vez' }}</h2>

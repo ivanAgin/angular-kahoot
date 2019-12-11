@@ -1,12 +1,12 @@
 <div id="main-container">
-    <div id="logo"><img width="60" src="../../assets/img/logo.png" alt="Logo"></div>
+    <div id="logo"  (click)="game.home()"><img width="60" src="../../assets/img/logo.png" alt="Logo"></div>
     <div id="home-buttons">
         <div class="shape triangle outline"></div>
         <div class="shape square"></div>
         <div class="shape circle"></div>
         <div class="shape rombo"></div>
         <button id="new-game-button" class="btn btn-outline" (click)="startNewGame()">New game</button> 
-        <input placeholder="Enter code..." [(ngModel)]="codiPartida">
-        <button id="join-game-button" class="btn btn-outline" (click)="getIdPartida()" [disabled]="!codiPartida" >Join game</button>
+        <input placeholder="code" [(ngModel)]="codiPartida" class="centerInputText">
+        <button id="join-game-button" class="btn btn-outline" (click)="joinGame()" [disabled]="!codiPartida" >{{ join_button_text }}</button>
     </div>
 </div>
