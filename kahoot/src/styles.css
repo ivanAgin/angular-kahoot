@@ -530,3 +530,10 @@ input::before{
     font-weight: 700;
     font-size: 80px;
 }
+
+.centerInputText {
+    letter-spacing: 20px;
+    font-size: 28px;
+    text-align: center;
+    font-weight: 700;
+}

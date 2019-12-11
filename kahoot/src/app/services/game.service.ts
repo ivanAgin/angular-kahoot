@@ -22,7 +22,6 @@ export class GameService {
     this.firebase.getPartida(this.idPartida).subscribe(
       data => {
         if(data == null || data.codi == undefined) {
-          console.log("GameService: Partida actualitzada, data == null o data.codi == undefined");
           this.router.navigateByUrl("/");
         }
 
