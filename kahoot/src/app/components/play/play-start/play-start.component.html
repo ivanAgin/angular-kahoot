@@ -1,5 +1,5 @@
 <div id="main-container">
-    <div id="logo"><img width="60" src="../../assets/img/logo.png" alt="Logo"></div>
+    <div id="logo" (click)="game.home()"><img width="60" src="../../assets/img/logo.png" alt="Logo"></div>
     <h1>El código de partida es</h1>
     <h2 class="btn btn-outline" *ngIf="partida">{{ this.partida.codi }}</h2>
     <ul id="start-users-list" *ngIf="partida">

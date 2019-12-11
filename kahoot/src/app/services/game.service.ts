@@ -49,4 +49,9 @@ export class GameService {
     this.preguntes = null;
   }
 
+  home() {
+    this.reset();
+    this.router.navigateByUrl("/");
+  }
+
 }

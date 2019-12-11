@@ -25,6 +25,10 @@ export class AdminQuestionComponent implements OnInit {
   time:number = 60;
   timer;
   estadoActual = 0;
+  first_counter:number = 0;
+  second_counter:number = 0;
+  third_counter:number = 0;
+  fourth_counter:number = 0;
 
   constructor(
     private game: GameService,
@@ -43,6 +47,10 @@ export class AdminQuestionComponent implements OnInit {
   public startQuestion() {
     this.acertado = false;
     this.pregunta_seleccionada = null;
+    this.first_counter = 0;
+    this.second_counter = 0;
+    this.third_counter = 0;
+    this.fourth_counter = 0;
     this.startTimer();
   }
   
@@ -110,10 +118,31 @@ export class AdminQuestionComponent implements OnInit {
 
   private getAnswerCount() {
     let i = 0;
+    this.first_counter = 0;
+    this.second_counter = 0;
+    this.third_counter = 0;
+    this.fourth_counter = 0;
     if(this.partida!=null && this.partida.respuestas != null) {
       this.partida.respuestas.forEach((respuesta) => {
-        if(respuesta.pregunta == this.game.pregunta_seleccionada) //si la resposta es de la pregunta d'ara
+        if(respuesta.pregunta == this.game.pregunta_seleccionada) { //si la resposta es de la pregunta d'ara
           i++;
+        }
+        console.log(respuesta);
+        switch(respuesta.pregunta) {
+          case "0":
+            this.first_counter++;
+            break;
+          case "1":
+            this.second_counter++;
+            break;
+          case "2":
+            this.third_counter++;
+            break;
+          case "3":
+            this.fourth_counter++;
+            break;
+        }
+
       });
       this.answers_count = i;
     }
