@@ -23,7 +23,7 @@ export class FirebaseService {
     })
   }
 
-  public getPartidaByCodi(codi: string){
+  public async getPartidaByCodi(codi: string):Promise<string>{
     var id: string;
     this.realtime.database.ref('/partidas').orderByChild('codi').equalTo(codi).on("value", (snapshot) => {
       snapshot.forEach(data => {
@@ -32,12 +32,16 @@ export class FirebaseService {
     });
 
     //la guarra
-    setTimeout(() => {
-
-    }, 1000);
-
-    if(id==null) id = "-1";
+    await this.delay(1000);
+    /*setTimeout(function() {
+      if(id==null) id = "-1";
+    }, 3000);*/
+    
     return id;
+  }
+
+  public delay(ms: number) {
+      return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
   public getPartides(){
@@ -118,7 +122,6 @@ export class FirebaseService {
    *                    PIPES
    ***************************************************/
   private pipePartida(data) {
-    console.log("pipe partida: ", data);
     let partida:Partida = new Partida(null, null, null, null);
     partida.codi = <string>data[0];
     partida.estado = <string>data[1];

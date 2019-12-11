@@ -14,17 +14,17 @@ export class HomeComponent implements OnInit {
 
   async joinGame(){
     this.join_button_text = "Joining...";
-    const idFirebase:string = this.firebaseService.getPartidaByCodi(this.codiPartida);
-    console.log(`joinGame(): idFirebase: ${idFirebase} - codiPartida: ${this.codiPartida} - navegant a /play/${idFirebase}`);
-    if(idFirebase == "-1") {
-      this.join_button_text = "Error";
-      setTimeout(() => {
-        this.join_button_text = "Join Game";
-      }, 3000);
-    }
-    else {
-      this.router.navigateByUrl(`/play/${idFirebase}`);
-    }
+    this.firebaseService.getPartidaByCodi(this.codiPartida).then((idFirebase:string) => {
+      if(idFirebase == "-1") {
+        this.join_button_text = "Error";
+        setTimeout(() => {
+          this.join_button_text = "Join Game";
+        }, 3000);
+      }
+      else {
+        this.router.navigateByUrl(`/play/${idFirebase}`);
+      }
+    });
   }
 
 
