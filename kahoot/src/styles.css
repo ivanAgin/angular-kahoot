@@ -323,17 +323,18 @@ input::before{
     color: white;
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 #answers li:nth-child(1),
 #answer.back-red {
     background: #E01D3F;
-    width: 100%;
 }
 
 #answers li:nth-child(2),
 #answer.back-blue {
     background: #0F68D7;
+    padding: 25px 15px;
 }
 
 #answers li:nth-child(3),
