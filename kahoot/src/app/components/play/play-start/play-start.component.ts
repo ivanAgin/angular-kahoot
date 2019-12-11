@@ -47,7 +47,6 @@ export class PlayStartComponent implements OnInit {
   join() {
     this.button_text = "Joining...";
     this.participating = true;
-    console.log("join() --> this.participating = true")
     this.firebase.join(this.id_partida, this.alias).then((docRef) => {
         this.button_text = "Waiting to start...";
         this.game.nomUsuari = this.alias;

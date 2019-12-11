@@ -60,20 +60,20 @@ export class FirebaseService {
 
   public setAnswer(codiPartida: string, respuesta: Respuesta){
     return this.realtime.list('/partidas/' + codiPartida + '/respuestas').push(respuesta).then(function (docRef){
-      console.log("Document written with ID: ", docRef.key);
+
     })
     .catch(function (error) {
-      console.error("Error adding document: ", error);
+
     });
   }
 
   public changePoints(codiPartida: string, usuario: string, point: number){
     //return this.realtime.list('/partidas/' + codiPartida + '/usuarios').update(usuario, { "nombre": usuario, "puntos": 1000 }).then(function (docRef) {
     return this.realtime.list('/partidas/' + codiPartida + '/usuarios/' + usuario).set('/puntos', point).then(function (docRef) {
-      console.log("Updated!");
+
     })
     .catch(function (error) {
-      console.error("Error updating document: ", error);
+
     });
   }
 
@@ -86,14 +86,14 @@ export class FirebaseService {
     this.realtime.database.ref('/partidas/' + codiPartida + '/usuarios').orderByChild('nombre').equalTo(usuario).on("value", function(snapshot){
       snapshot.forEach(data => {
         self.realtime.list('/partidas/' + codiPartida + '/usuarios/' + data.key).remove()
-        console.log(data.key)
+
       });
     })
   }
 
   public getWinners(codiPartida: string){
     this.realtime.database.ref('/partidas/' + codiPartida + '/usuarios').orderByChild('puntos').limitToLast(3).on("value",function(snapshot){
-      console.log(snapshot.val())
+
     })
   }
 
@@ -111,10 +111,10 @@ export class FirebaseService {
 
   public changeState(codiPartida,estado){
     return this.realtime.list('/partidas/' + codiPartida).set('/estado', estado).then(function (docRef) {
-      console.log("Updated!");
+
     })
       .catch(function (error) {
-        console.error("Error updating document: ", error);
+
       });
   }
 

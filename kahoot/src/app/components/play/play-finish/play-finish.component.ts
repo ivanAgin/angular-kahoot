@@ -46,7 +46,6 @@ export class PlayFinishComponent implements OnInit {
             break;
         }
 
-        console.log(sorted)
       }else{
         this.title = "Ups! We don't have enought answers..."
       }

@@ -35,12 +35,10 @@ export class AdminStartComponent implements OnInit {
 
   iniciPartida(){
     this.firebase.changeState(this.ref_key,0);
-    console.log(this.id_partida);
     this.router.navigateByUrl(`/admin/${this.ref_key}/game`);
   }
 
   createPartida(){
-    console.log(this.set)
     if(this.set && this.nombre){
       this.firebase.createPartida(this.id_partida.toString(), this.nombre, this.set, "-1").then(
         ref => {
@@ -49,7 +47,6 @@ export class AdminStartComponent implements OnInit {
           this.firebase.getPartida(ref.key).subscribe(
             data => {
               this.partida = data;
-              console.log(data);
             }
           );
         }

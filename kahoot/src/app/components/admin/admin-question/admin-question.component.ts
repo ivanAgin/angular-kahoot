@@ -111,9 +111,7 @@ export class AdminQuestionComponent implements OnInit {
   private getAnswerCount() {
     let i = 0;
     if(this.partida!=null && this.partida.respuestas != null) {
-      console.log("Dentro de getAnswerCount() en Admin. Size respuestas: " + this.partida.respuestas.length);
       this.partida.respuestas.forEach((respuesta) => {
-        console.log(respuesta.pregunta, this.game.pregunta_seleccionada);
         if(respuesta.pregunta == this.game.pregunta_seleccionada) //si la resposta es de la pregunta d'ara
           i++;
       });
