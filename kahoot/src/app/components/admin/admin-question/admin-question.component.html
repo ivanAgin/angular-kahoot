@@ -25,6 +25,6 @@
         </li>    
     </ul>
     <div id="siguiente">
-        <button id="next-question-button" class="btn btn-outline" (click)="nextQuestion()">Next Question</button>
+        <button id="next-question-button" class="btn btn-outline" (click)="nextQuestion()" [disabled]="this.time > 0">Next Question</button>
     </div>
 </div>

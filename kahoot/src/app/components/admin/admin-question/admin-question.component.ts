@@ -15,7 +15,7 @@ export class AdminQuestionComponent implements OnInit {
 
   //Atributs de partida
   partida: Partida;
-  ref_key:string;
+  id_partida:string;
   pregunta_seleccionada:string;
   acertado:boolean = false;
   pregunta: Pregunta;
@@ -33,7 +33,8 @@ export class AdminQuestionComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.ref_key = this.route.snapshot.paramMap.get("id");
+    this.name = this.game.nomUsuari;
+    this.id_partida = this.route.snapshot.paramMap.get("id");
     
     this.fetchPartida(); //ja activa el timer
         
@@ -46,8 +47,8 @@ export class AdminQuestionComponent implements OnInit {
   }
   
   nextQuestion(){
-    this.estadoActual = (this.question_count>this.estadoActual+1) ? this.estadoActual+1 : -2 ;
-    this.realtime.changeState(this.ref_key,this.estadoActual)
+    this.estadoActual = (this.game.preguntes.length > this.estadoActual+1) ? this.estadoActual+1 : -2 ;
+    this.realtime.changeState(this.id_partida,this.estadoActual)
   }
 
   private startTimer() {
@@ -56,7 +57,8 @@ export class AdminQuestionComponent implements OnInit {
     this.timer = setInterval(() => {
       if(this.time <= 0) {
         clearInterval(this.timer);
-        this.nextQuestion();
+        this.time = 0;
+
       }
       else this.time--;
     }, 1000);
@@ -64,9 +66,9 @@ export class AdminQuestionComponent implements OnInit {
 
   private fetchPartida() {
     //Obtenim partida
-    this.realtime.getPartida(this.ref_key).subscribe(
+    this.realtime.getPartida(this.id_partida).subscribe(
       p => {
-        this.getQuestions(p)
+        this.checkState(p);
         this.partida = p;
         
         //Obtenim answer_count
@@ -76,18 +78,23 @@ export class AdminQuestionComponent implements OnInit {
     );
   }
 
-  private getQuestions(p:Partida){
-    if(p.estado!='-2'){
+  private checkState(p:Partida){
+    if(p.estado=='-2'){
+      this.router.navigateByUrl(`/play/${this.id_partida}/finish`);
+    }
+    else if(p.estado=='-1') {
+      this.router.navigateByUrl(`/play/${this.id_partida}`);
+    }
+    else if(!this.partida || this.partida.estado!=p.estado){
+      
+      //canviem
       this.realtime.getSetQuestions(p.preguntas).subscribe( //Obtenim la següent pregunta...
         data => {
           this.game.preguntes = data;
-          this.question_count = data.length
           this.pregunta = data[p.estado];
           this.startQuestion();
         }
       );
-    }else{
-      this.router.navigateByUrl(`admin/${this.ref_key}/finish`)
     }
   }
 
