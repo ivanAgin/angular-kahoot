@@ -51,6 +51,13 @@ export class AdminQuestionComponent implements OnInit {
     this.realtime.changeState(this.id_partida,this.estadoActual)
   }
 
+  stopQuestion() {
+    if(this.answers_count >= this.partida.usuarios.length) {
+      this.time = 0;
+      clearInterval(this.timer);
+    }
+  }
+
   private startTimer() {
     //Timer
     this.time = 60;
@@ -93,6 +100,7 @@ export class AdminQuestionComponent implements OnInit {
           this.game.preguntes = data;
           this.game.pregunta_seleccionada = p.estado;
           this.pregunta = data[p.estado];
+          this.answers_count = 0;
           this.startQuestion();
         }
       );
