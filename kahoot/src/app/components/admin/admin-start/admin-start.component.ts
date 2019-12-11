@@ -16,9 +16,9 @@ export class AdminStartComponent implements OnInit {
   partida:Partida;
   id_partida:number = Math.floor(Math.random() * 9999) + 1000;
   ref_key;
-  nombre;
+  nombre:string;
   questions: string[] = [];
-  set: string = ""
+  set: string = "";
   
   constructor(private activatedRoute: ActivatedRoute,
     private firebase:FirebaseService,
@@ -42,7 +42,7 @@ export class AdminStartComponent implements OnInit {
   createPartida(){
     console.log(this.set)
     if(this.set && this.nombre){
-      this.firebase.createPartida(this.id_partida.toString(), this.nombre, this.set, -1).then(
+      this.firebase.createPartida(this.id_partida.toString(), this.nombre, this.set, "-1").then(
         ref => {
           this.ref_key = ref.key; 
           this.game.setPartida(this.ref_key);

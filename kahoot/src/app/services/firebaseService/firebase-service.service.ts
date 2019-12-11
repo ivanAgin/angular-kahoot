@@ -16,7 +16,7 @@ export class FirebaseService {
 
   constructor(private http: HttpClient,private realtime: AngularFireDatabase) {}
 
-  public createPartida(codiPartida,nomPartida, setPreguntes, estado){
+  public createPartida(codiPartida,nomPartida, setPreguntes, estado:string){
     let partida = new Partida(codiPartida,nomPartida,setPreguntes, estado)
     return this.realtime.list('/partidas').push(partida).then( (ref) => {
       return ref
@@ -30,6 +30,13 @@ export class FirebaseService {
         id = data.key;
       });
     });
+
+    //la guarra
+    setTimeout(() => {
+
+    }, 1000);
+
+    if(id==null) id = "-1";
     return id;
   }
 
@@ -111,6 +118,7 @@ export class FirebaseService {
    *                    PIPES
    ***************************************************/
   private pipePartida(data) {
+    console.log("pipe partida: ", data);
     let partida:Partida = new Partida(null, null, null, null);
     partida.codi = <string>data[0];
     partida.estado = <string>data[1];

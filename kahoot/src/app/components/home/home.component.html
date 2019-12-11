@@ -7,6 +7,6 @@
         <div class="shape rombo"></div>
         <button id="new-game-button" class="btn btn-outline" (click)="startNewGame()">New game</button> 
         <input placeholder="Enter code..." [(ngModel)]="codiPartida">
-        <button id="join-game-button" class="btn btn-outline" (click)="getIdPartida()" [disabled]="!codiPartida" >Join game</button>
+        <button id="join-game-button" class="btn btn-outline" (click)="joinGame()" [disabled]="!codiPartida" >{{ join_button_text }}</button>
     </div>
 </div>
