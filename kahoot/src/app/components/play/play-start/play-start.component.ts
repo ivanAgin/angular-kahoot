@@ -36,6 +36,7 @@ export class PlayStartComponent implements OnInit {
             this.router.navigateByUrl(`/play/${this.id_partida}/game`);
           }
           else { //no hem entrat a la partida
+            this.game.reset();
             this.router.navigateByUrl("/");
           }
         }

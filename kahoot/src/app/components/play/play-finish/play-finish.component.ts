@@ -53,6 +53,7 @@ export class PlayFinishComponent implements OnInit {
   }
 
   finish() {
+    this.game.reset();
     this.router.navigateByUrl("/");
   }
 
